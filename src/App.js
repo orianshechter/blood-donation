@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect} from 'react'
+import MapComponent from './components/map/Map'
+// import Example from './Example'
+import './App.css'
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import {BrowserView, MobileView} from 'react-device-detect';
+import AddressesList from './components/AddressesList'
 
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="app">
+      <div id="search__bar">
+        <input placeholder="ישוב" dir="rtl" type="text" text="ישוב" />
+      </div>
+      <div id="page__body">
+
+        <MobileView>
+          <MapComponent
+            style={{ height: "90vh", width: "100%" }}
+          />
+        </MobileView>
+
+        <BrowserView>
+          <MapComponent
+            style={{ height: "85vh", width: "65vw" }}
+          />
+        </BrowserView>
+
+        <AddressesList />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,59 @@
+/* for mobile */
+@media only screen and (max-width: 600px) {
+    #adrresses {
+        /* width: 30vw; */
+        height: 80vh;
+        background: whitesmoke;
+        overflow-y: scroll;
+      }
+      #adrresses > #address {
+        /* background-color: lightblue; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        padding: 20px;
+        cursor: pointer;
+        border-bottom: 1px solid lightgray;
+        /* box-shadow: inset 3mm -6mm 4mm lightblue; */
+      }
+      #adrresses > #address > #time {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        font-size: larger;
+        font-weight: bold;
+      }
+}
+
+/*  for Desktop Browser */
+@media only screen and (min-width: 600px) {
+    #adrresses {
+        width: 30vw;
+        /* height: 80vh; */
+        background: whitesmoke;
+        overflow-y: scroll;
+      }
+      #adrresses > #address {
+        /* background-color: lightblue; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        padding: 20px;
+        /* cursor: pointer; */
+        border-bottom: 1px solid lightgray;
+      }
+      #adrresses > #address:hover {
+        background-color: lightgray;
+      }
+      #adrresses > #address > #time {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        font-size: larger;
+        font-weight: bold;
+      }
+}

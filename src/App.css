@@ -1,38 +1,165 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: heebo,sans-serif;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  /* for mobile */
+  @media only screen and (max-width: 600px) {
+  /* Set the size of the div element that contains the map */
+  #map {
+    height: 90vh;
+    /* float: left; */
+    /* The height is 400 pixels */
+    width: 100%;
+    /* min-width: 400px; */
+    /* The width is the width of the web page */
   }
-  to {
-    transform: rotate(360deg);
+  #app {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      /* background-color: lightgrey; */
   }
-}
+  
+  #search__bar {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      /* max-width: fit-content; */
+      width: 95%;
+      padding: 10px;
+      height: 30px;
+      border: 1px solid lightgray;
+      border-radius: 999px;
+      box-shadow: -1px 4px 20px -6px rgba(0,0,0,.65);
+      margin-top: 4%;
+      margin-bottom: 4%;
+    }
+  #search__bar > input {
+      border: 10px;
+      padding: 10px;
+      outline-width: 0;
+      border-radius: 99px;
+      width: fit-content;
+      /* width: 250px; */
+      width: 100%;
+      font-size: 20px;
+  }
+  
+  #page__body {
+    display: flex;
+    flex-direction: column;
+    width: 95vw;
+    box-shadow: -1px 4px 20px -6px rgba(0,0,0,.65);
+  }
+  /* Map or List buttons*/
+  .switch {
+    position: relative;
+    /* margin: 100px auto; */
+    margin-bottom: 3%;
+    width: 180px;
+    height: 40px;
+    border: 3px solid lightgray;
+    color: black;
+    /* font-size: 25px; */
+    border-radius: 10px;
+  }
+  
+  .quality {
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    line-height: 40px;
+  }
+  .quality:first-child label {
+    border-radius: 5px 0 0 5px;
+  }
+  .quality:last-child label {
+    border-radius: 0 5px 5px 0;
+  }
+  .quality label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    /* font-style: italic; */
+    text-align: center;
+    transition: transform 0.4s, color 0.4s, background-color 0.4s;
+  }
+  .quality input[type="radio"] {
+    appearance: none;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  .quality input[type="radio"]:focus {
+    outline: 0;
+    outline-offset: 0;
+  }
+  .quality input[type="radio"]:checked ~ label {
+    background-color: lightgreen;
+    color: #111;
+  }
+  .quality input[type="radio"]:active ~ label {
+    transform: scale(1.05);
+  }
+  
+  }
+  
+  /*  for Desktop Browser */
+  @media only screen and (min-width: 600px) {
+    body {
+      /* background-color: lightblue; */
+      background-color: whitesmoke;
+    }
+    #map {
+      height: 80vh;
+      width: 65vw;
+    }
+    #app {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        
+        /* background-color: whitesmoke; */
+    }
+    #search__bar {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        /* max-width: fit-content; */
+        width: fit-content;
+        padding: 10px;
+        /* height: 30px; */
+        border: 1px solid lightgray;
+        border-radius: 999px;
+        box-shadow: -1px 4px 20px -6px rgba(0,0,0,.65);
+        margin-top: 1%;
+        margin-bottom: 1%;
+        background: white;
+      }
+    #search__bar > input {
+        border: 10px;
+        /* padding: 10px; */
+        outline-width: 0;
+        border-radius: 99px;
+        width: fit-content;
+        /* width: 250px; */
+        width: 100%;
+        font-size: 20px;
+  
+    }
+    
+    #page__body {
+        height: 85vh;
+      display: flex;
+      flex-direction: row;
+      box-shadow: -1px 4px 20px -6px rgba(0,0,0,.65);
+    }
+  }
+  
