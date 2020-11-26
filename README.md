@@ -1,6 +1,6 @@
-## blood donation locations app
+## Blood donation locations app!
 scraped the addresses from https://www.mdais.org/blood-donation
-Created with ReactJS.
+Created with React, and the map created with React-leaflet.
 
 ## Available Scripts
 
