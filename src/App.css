@@ -9,10 +9,8 @@
   #map {
     height: 90vh;
     /* float: left; */
-    /* The height is 400 pixels */
     width: 100%;
     /* min-width: 400px; */
-    /* The width is the width of the web page */
   }
   #app {
       display: flex;
@@ -35,6 +33,7 @@
       box-shadow: -1px 4px 20px -6px rgba(0,0,0,.65);
       margin-top: 4%;
       margin-bottom: 4%;
+      justify-content: space-between;
     }
   #search__bar > input {
       border: 10px;
@@ -74,10 +73,10 @@
     line-height: 40px;
   }
   .quality:first-child label {
-    border-radius: 5px 0 0 5px;
+    border-radius: 0 5px 5px 0;
   }
   .quality:last-child label {
-    border-radius: 0 5px 5px 0;
+    border-radius: 5px 0 0 5px;
   }
   .quality label {
     position: absolute;
@@ -128,13 +127,15 @@
         
         /* background-color: whitesmoke; */
     }
+    
     #search__bar {
         display: flex;
         flex: 1;
         align-items: center;
         /* max-width: fit-content; */
         width: fit-content;
-        padding: 10px;
+        /* padding: 10px; */
+        width: 20%;
         /* height: 30px; */
         border: 1px solid lightgray;
         border-radius: 999px;
@@ -142,6 +143,7 @@
         margin-top: 1%;
         margin-bottom: 1%;
         background: white;
+        padding: 8px;
       }
     #search__bar > input {
         border: 10px;
@@ -152,9 +154,7 @@
         /* width: 250px; */
         width: 100%;
         font-size: 20px;
-  
     }
-    
     #page__body {
         height: 85vh;
       display: flex;
@@ -163,3 +163,20 @@
     }
   }
   
+  .MuiInputLabel-outlined {
+    z-index: 1;
+    transform: translate(14px, 20px) scale(1);
+    pointer-events: none;
+    margin-left: 50%;
+}
+  .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
+    padding-right: 0;
+    border-radius: 300px;
+  }
+  .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] {
+    padding-right: 5% !important
+}
+  .MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] .MuiAutocomplete-endAdornment {
+  /* right: 9px; */
+  display: none;
+  }

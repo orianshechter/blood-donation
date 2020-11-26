@@ -1,0 +1,29 @@
+.leaflet-container {
+    height: 100vh;
+    width: 100vw;
+}
+
+/* for mobile */
+@media only screen and (max-width: 600px) {
+    .leaflet-container {
+        height: 90vh;
+        width: 95vw;
+    }
+}
+
+/* for Desktop */
+@media only screen and (min-width: 600px) {
+    .leaflet-container {
+        height: 85vh;
+        width: 65vw;
+    }
+
+}
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: white;
+    color: #333;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+    max-height: 400px !important;
+    overflow-y: scroll;
+    max-width: 289px !important;
+}

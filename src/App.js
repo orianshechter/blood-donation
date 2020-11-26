@@ -1,36 +1,46 @@
-import React, {useEffect} from 'react'
-import MapComponent from './components/map/Map'
-// import Example from './Example'
+import React, {useEffect, useState} from 'react'
 import './App.css'
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+
 import {BrowserView, MobileView} from 'react-device-detect';
-import AddressesList from './components/AddressesList'
+import AddressesList from './components/LocationsList'
+import MapFree from './components/map/Map'
+import {AddressesProvider} from './components/context/AddressesProvider'
+import {GeoLocationProvider} from './components/context/GeoLocationProvider'
+
+import CitySearchBox from './components/CitySearchBox'
+
+import SelectDisplayType from './components/SelectDisplayType'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  
+  const [mainBodyDisplay, setMainBodyDisplay] = useState("map")
   return (
-    <div id="app">
-      <div id="search__bar">
-        <input placeholder="ישוב" dir="rtl" type="text" text="ישוב" />
-      </div>
-      <div id="page__body">
-
-        <MobileView>
-          <MapComponent
-            style={{ height: "90vh", width: "100%" }}
-          />
-        </MobileView>
-
+    <GeoLocationProvider>
+      <AddressesProvider>
         <BrowserView>
-          <MapComponent
-            style={{ height: "85vh", width: "65vw" }}
-          />
+          <div id="app">
+              <CitySearchBox />
+            <div dir="ltr" id="page__body">
+              <MapFree />
+              <AddressesList />
+            </div>
+          </div>
         </BrowserView>
 
-        <AddressesList />
-      </div>
-    </div>
+        <MobileView>
+          <div id="app">
+            <CitySearchBox />
+            {/* <CurrentLocationButton /> */}
+            <SelectDisplayType setMainBodyDisplay={setMainBodyDisplay} />
+
+            <div dir="ltr" id="page__body">
+              {mainBodyDisplay === "map" && <MapFree />}
+              {mainBodyDisplay === "locations" && <AddressesList />}
+            </div>
+          </div>
+        </MobileView>
+      </AddressesProvider>
+    </GeoLocationProvider>
   );
 }
 
