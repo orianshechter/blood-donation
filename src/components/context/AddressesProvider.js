@@ -4,7 +4,7 @@ export const AddressesContext = createContext()
 
 export const AddressesProvider = ({children}) => {
     const [addressesObjects,setAddressesObjets] = useState(undefined)
-
+    
     function onMouseAddressHover(addressObj) {
         setAddressesObjets((addressesObjects) => {
           return addressesObjects.map(addressObject => {
@@ -15,7 +15,10 @@ export const AddressesProvider = ({children}) => {
               };
             }
             else{
-              return addressObject
+              return {
+                ...addressObject,
+                isLocationClicked: false
+              }
             }
           })
         })
@@ -36,9 +39,10 @@ export const AddressesProvider = ({children}) => {
         })
       }
     useEffect(() => {
+        var today = new Date(Date.now()).toLocaleString('he-IL').split(',')[0]
         var url =
-          "https://orianshechter.github.io/blood-donation-addresses/26.11.2020/addresses.json";
-    
+          "https://orianshechter.github.io/blood-donation-addresses/addresses.json";
+        console.log(url)
         let request = new XMLHttpRequest();
         request.open("GET", url, true);
         request.onload = function () {

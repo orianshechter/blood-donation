@@ -7,17 +7,17 @@ import Location from './Location'
 
 function AddressesList() {
   const {addressesObjects, setAddressesObjets} = useContext(AddressesContext);
-  const { mapCenter, mapZoom } = useContext(GeoLocationContext)
+  const { mapCenter, mapZoom, locationsCenter } = useContext(GeoLocationContext)
 
   useEffect(() => {
     // console.log({addressesObjects})
+    console.log("sorting")
+    console.log({addressesObjects})
     sortAdresses()
-    let locationsDiv = document.getElementById('adrresses');
-    if(locationsDiv) {
-      locationsDiv.scrollTop = 0; 
-    }
-  },[mapCenter,mapZoom])
-
+  },[locationsCenter])
+  // useEffect(() => {
+  //   sortAdresses()
+  // },[])
   function sortAdresses() {
     if(addressesObjects) {
       setAddressesObjets(addressesObjects => {
@@ -29,14 +29,14 @@ function AddressesList() {
           const address1DistanceFromLoc = getDistanceFromLatLonInKm(
             addressObj1.address.location.lat,
             addressObj1.address.location.lng,
-            mapCenter[0],
-            mapCenter[1]
+            locationsCenter[0],
+            locationsCenter[1]
           );
           const address2DistanceFromLoc = getDistanceFromLatLonInKm(
             addressObj2.address.location.lat,
             addressObj2.address.location.lng,
-            mapCenter[0],
-            mapCenter[1]
+            locationsCenter[0],
+            locationsCenter[1]
           );
           if(address1DistanceFromLoc < address2DistanceFromLoc){
             return -1

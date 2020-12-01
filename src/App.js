@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import './App.css'
 
 import {BrowserView, MobileView} from 'react-device-detect';
+
 import AddressesList from './components/LocationsList'
 import MapFree from './components/map/Map'
 import {AddressesProvider} from './components/context/AddressesProvider'
@@ -13,7 +14,7 @@ import SelectDisplayType from './components/SelectDisplayType'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [mainBodyDisplay, setMainBodyDisplay] = useState("map")
+  const [mainBodyDisplay, setMainBodyDisplay] = useState("locations")
   return (
     <GeoLocationProvider>
       <AddressesProvider>

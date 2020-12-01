@@ -15,12 +15,20 @@ import "./Map.css";
 
 function MapUpdateViewHandler() {
   const map = useMap();
-  const { mapCenter, mapZoom } = useContext(GeoLocationContext);
-
+  const { mapCenter, locationsCenter, mapZoom } = useContext(GeoLocationContext);
+  
   useEffect(() => {
-    map.setView(mapCenter, mapZoom);
-  }, [mapCenter, mapZoom]);
-
+    map.closePopup()
+    console.log("setting center to "+mapCenter)
+    map.setView(mapCenter); 
+  }, [locationsCenter, mapCenter]);
+  useEffect(() => {
+    map.setView(locationsCenter, mapZoom)
+  },[locationsCenter,mapZoom])
+  // useEffect(() => {
+  //   console.log("setting zoom to "+mapZoom)
+  //   map.setZoom(mapZoom)
+  // }, [mapZoom]);
   // it's an empty component, only here to manage the map's zoom when user makes new search
   return <></>;
 }
@@ -28,7 +36,6 @@ function MapUpdateViewHandler() {
 function Map() {
   const { addressesObjects, setAddressesObjets } = useContext(AddressesContext);
   const { mapCenter, mapZoom } = useContext(GeoLocationContext);
-
   function onPopupOpen(addressObj) {
     setAddressesObjets((addressesObjects) => {
       return addressesObjects.map((addressObject) => {
@@ -36,9 +43,13 @@ function Map() {
           return {
             ...addressObj,
             isPopupOpen: true,
+            isLocationClicked: false
           };
         } else {
-          return addressObject;
+          return {
+            ...addressObject,
+             isLocationClicked: false
+          }
         }
       });
     });
@@ -81,7 +92,7 @@ function Map() {
                 <Pane>
                   <Circle
                     pathOptions={
-                      addressObj.isPopupOpen || addressObj.isListHovered
+                      addressObj.isPopupOpen || addressObj.isListHovered || addressObj.isLocationClicked
                         ? { color: "red", opacity: "1" }
                         : { color: "green", opacity: 0.2 }
                     }
@@ -102,6 +113,7 @@ function Map() {
                   <Popup
                     onOpen={() => {
                       onPopupOpen(addressObj);
+
                     }}
                     onClose={() => {
                       onPopupClose(addressObj);

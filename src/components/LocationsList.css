@@ -6,7 +6,7 @@
         background: whitesmoke;
         overflow-y: scroll;
       }
-      #adrresses > #address {
+      #address {
         /* background-color: lightblue; */
         display: flex;
         flex-direction: column;
@@ -14,12 +14,13 @@
         align-content: center;
         text-align: center;
         padding: 10px;
+        line-height: 1;
         cursor: pointer;
         border: 1px solid lightgray;
         box-shadow: 10px 5px 12px 0px lightgrey
         /* box-shadow: inset 3mm -6mm 4mm lightblue; */
       }
-      #adrresses > #address > #time {
+      #time {
         display: flex;
         flex-direction: row-reverse;
         justify-content: space-between;
@@ -36,27 +37,28 @@
         background: whitesmoke;
         overflow-y: scroll;
       }
-      #adrresses > #address {
+      #address {
         /* background-color: lightblue; */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-content: center;
         text-align: center;
-        padding: 20px;
-        /* cursor: pointer; */
+        padding: 10px;
+        line-height: 1;
+        cursor: pointer;
         border: 1px solid lightgray;
         box-shadow: 10px 5px 12px 0px lightgrey
       }
       #adrresses > #address:hover {
         background-color: lightgray;
       }
-      #adrresses > #address > #time {
+      #time {
         display: flex;
         flex-direction: row-reverse;
         justify-content: space-between;
         font-size: larger;
-        /* font-weight: bold; */
-        margin-bottom: 3px;
+        font-weight: bold;
+        /* margin-bottom: 3px; */
       }
 }
