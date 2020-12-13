@@ -14,20 +14,37 @@ function get_address_from_line(line) {
   if (!(date && address && time_start && time_end)) {
     return undefined;
   }
-  let day = date.textContent.split(".")[0];
-  let month = date.textContent.split(".")[1] - 1;
-  let year = date.textContent.split(".")[2];
-//   console.log({ day, month, year });
-  let hour_start = time_start.textContent.split(":")[0];
-  let minutes_start = time_start.textContent.split(":")[1];
-  let hour_end = time_end.textContent.split(":")[0];
-  let minutes_end = time_end.textContent.split(":")[1];
+  let day = date.innerText.split(".")[0];
+  let month = date.innerText.split(".")[1] - 1;
+  let year = date.innerText.split(".")[2];
+  //   console.log({ day, month, year });
+  let hour_start = time_start.innerText.split(":")[0];
+  let minutes_start = time_start.innerText.split(":")[1];
+  let hour_end = time_end.innerText.split(":")[0];
+  let minutes_end = time_end.innerText.split(":")[1];
 
   let timestamp_start = new Date(year, month, day, hour_start, minutes_start);
   let timestamp_end = new Date(year, month, day, hour_end, minutes_end);
 
+  let cityOptions = document.querySelector("#address")._vOptions;
+  //     console.log({cityOptions})
+  let addressCity = undefined;
+  cityOptions.forEach((city) => {
+    cityInAdrdress = address.innerText.trim().indexOf(city) !== -1;
+    if (cityInAdrdress) {
+      addressCity = city;
+    }
+  });
+  if (!addressCity || addressCity === "") {
+    addressCity = address.innerText.trim();
+    //   console.log(address.innerText.trim())
+  }
+  //   console.log(address.innerText.trim()+ " and:")
+  //   console.log({addressCity})
+
   const lineObj = {
-    address: address.textContent.trim(),
+    address: address.innerText.trim(),
+    city: addressCity,
     timestamp_start: timestamp_start,
     timestamp_end: timestamp_end,
   };
@@ -44,7 +61,7 @@ function date_to_day_selector(date) {
     currentDayInTheMonth + firstDayInCurrentMonth.getDay() + firstLineAdd;
   return document.querySelector(
     `#panel1 > div > div > div.mainContent > section > div >
-               div > div.input-unit.calanderStyle > div > div:nth-child(2) > div > span:nth-child(${queryChild})`
+             div > div.input-unit.calanderStyle > div > div:nth-child(2) > div > span:nth-child(${queryChild})`
   );
 }
 
@@ -54,6 +71,7 @@ function organize_duplicate_addresses(data) {
       continue;
     }
     data[i] = {
+      city: data[i].city,
       address: data[i].address,
       times: [
         {
@@ -78,7 +96,7 @@ function organize_duplicate_addresses(data) {
       new_data.push(data[i]);
     }
   }
-//   console.log(data);
+  //   console.log(data)
   return new_data;
 }
 
@@ -90,8 +108,9 @@ async function collect_data(daysToCollect) {
   dateBoxSelector.click();
   await setTimeout(() => {}, 20);
   let currentDate = new Date();
+  let nextDate = undefined;
 
-//   console.log({ currentDate });
+  //   console.log({ currentDate });
   while (daysToCollect > 0) {
     await setTimeout(() => {}, 1000);
     var daySelector = date_to_day_selector(currentDate);
@@ -102,6 +121,7 @@ async function collect_data(daysToCollect) {
     while (lineObj) {
       data.push({
         address: lineObj.address,
+        city: lineObj.city,
         timestamp_start: lineObj.timestamp_start,
         timestamp_end: lineObj.timestamp_end,
       });
@@ -111,16 +131,15 @@ async function collect_data(daysToCollect) {
     //fetch next day
     currentDate.setDate(currentDate.getDate() + 1);
 
-    // if next day is in new month
+    // if next day in new month
     if (currentDate.getDate() === 1) {
       let nextMonthSelector = document.querySelector(`#panel1 > div > div > div.mainContent > section > 
-              div > div > div.input-unit.calanderStyle > div > div:nth-child(2) > header > span.prev`);
+            div > div > div.input-unit.calanderStyle > div > div:nth-child(2) > header > span.prev`);
       nextMonthSelector.click();
       await setTimeout(() => {}, 20);
     }
     daysToCollect--;
   }
-//   console.log(data);
   return data;
 }
 
@@ -134,23 +153,104 @@ function arrayBufferToBase64(buffer) {
   }
   return window.btoa(binary);
 }
+async function get_git_file_sha(token, filename) {
+  const url =
+    "https://api.github.com/repos/orianshechter/blood-donation-addresses/git/trees/main:" +
+    "?t=" +
+    Date.now();
 
-async function write_data_to_github(addresses) {
-//   console.log(addresses);
-  var today = new Date(Date.now()).toLocaleString().split(",")[0];
-  //TODO add your token and URL
-  var url =
-    "https://api.github.com/repos/orianshechter/blood-donation-addresses/contents/" +
-    today +
-    "/addresses.json";
-  var token = undefined; //
-  var dataToPush = new TextEncoder().encode(JSON.stringify(addresses, null, 3))
+  const response = await fetch(url, {
+    headers: {
+      // Rate limiting: Authenticated requests get a higher rate limit.
+      // https://developer.github.com/v3/#rate-limiting
+      Authorization: "token " + token,
+    },
+  });
+  if (response.status === 200) {
+    const data = await response.json();
+    const item = data.tree.find(function (item) {
+      return item.path === filename;
+    });
+    return item ? item.sha : null;
+  } else if (response.status === 404) {
+    // No such folder.
+    // console.log({response})
+    return null;
+  } else {
+    throw new Error("Get tree API returned " + response.status);
+  }
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+// fetches the addresses from Google geo location API. needs an API key.
+async function fetchGeoLocations(data) {
+  addressesWithLocations = [];
+  for (let i = 0; i < data.length; i++) {
+    if (!data[i].address) {
+      continue;
+    }
+    address = encodeURIComponent(data[i].address);
+    const GOOGLE_API_KEY = "my key"; // TODO insert google key
+
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&language=iw&key=${GOOGLE_API_KEY}`;
+
+    const response = await fetch(url);
+    const googleAddressData = await response.json();
+
+    if (googleAddressData.status === "OK") {
+      city = data[i].city;
+      data[i] = {
+        ...data[i],
+        address: {
+          unformatted: data[i].address,
+          location: googleAddressData.results[0].geometry.location,
+          formatted: googleAddressData.results[0].formatted_address,
+          city: data[i].city,
+        },
+      };
+      delete data[i].city;
+      let addressToAdd = data[i].address;
+      //       console.log(line)
+      addressesWithLocations.push(addressToAdd);
+    } else {
+      const badAddress = data[i].address;
+      // console.log({badAddress})
+      data[i] = {
+        ...data[i],
+        address: {
+          unformatted: badAddress,
+          location: {
+            lat: 33.44852903890945,
+            lng: 32.05693494134149,
+          },
+          formatted: "bad_address",
+          city: data[i].city,
+        },
+      };
+      delete data[i].city;
+      let addressToAdd = data[i].address;
+      addressesWithLocations.push(addressToAdd);
+    }
+  }
+  return addressesWithLocations;
+}
+
+async function write_data_to_github({ data, url, filename }) {
+  console.log({ data });
+  var nowDate = new Date(Date.now()).toLocaleString("he-IL");
+  //TODO insert github token
+  var token = undefined;
+  var dataToPush = new TextEncoder().encode(JSON.stringify(data, null, 3))
     .buffer;
-  let data = {
-    message: today + " update",
+  const serverSha = await get_git_file_sha(token, filename);
+  console.log({ serverSha });
+  let commit = {
+    message: nowDate + " update",
     content: arrayBufferToBase64(dataToPush),
+    sha: serverSha,
   };
-//   console.log(JSON.stringify(data));
   const response = await fetch(url, {
     method: "PUT",
     headers: {
@@ -158,101 +258,69 @@ async function write_data_to_github(addresses) {
       "Content-Type": "application/json; charset=utf-8",
       Authorization: "token " + token,
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(commit),
   });
   const content = await response.json();
-//   console.log(content);
-
-  if (response.status === 200) {
-    return "updated";
-  } else if (response.status === 201) {
-    return "created";
-  } else {
-    throw new Error("Put file API returned " + response.status);
-  }
+  console.log(content);
 }
-
-async function add_geo_points(data) {
-  var url =
-    "https://orianshechter.github.io/blood-donation-addresses/addresses-geo-points/Locations.json";
-
-  let addressesFromGitHub = undefined;
-  let request = new XMLHttpRequest();
-  request.open("GET", url, true);
-  request.onload = function () {
-    if (this.status === 200) {
-      try {
-        // console.log(this.response)
-        addressesFromGitHub = JSON.parse(this.response);
-      } catch (e) {
-        // console.log(e.message);
-      }
-    } else if (this.status === 400) {
-      addressesFromGitHub = {};
-    }
-    // console.log({ addressesFromGitHub });
-    // console.log(data);
-    let adresses_not_in_github = [];
-    for (let i = 0; i < data.length; i++) {
-      let addressObj = addressesFromGitHub.content.find(
-        (a) => a.address.unformatted === data[i].address
-      );
-    //   console.log(addressObj);
-      if (addressObj) {
-        data[i].address = addressObj.address;
-      } else {
-        adresses_not_in_github.push(data[i]);
-      }
-    }
-    // console.log(data);
-  };
-  return request.send();
-}
-
-//currently not used, need to be used only to recieve addresses that are not in github.
-// fetches the addresses from GoogleGeoLocation API.
-// needs an API key.
-async function fetchLitLngAllAddresses(data) {
-  addressesWithLocations = [];
-  for (let i = 0; i < data.length; i++) {
-    let line = data[i];
-    if (!line.address) {
-      continue;
-    }
-    address = encodeURIComponent(line.address);
-    GOOGLE_API_KEY = "my key"; // TODO insert google key
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&language=iw&key=${GOOGLE_API_KEY}`;
-
-    const response = await fetch(url);
-    const googleAddressData = await response.json();
-
-    if (googleAddressData.status === "OK") {
-      let results = googleAddressData.results;
-      line = {
-        address: {
-          unformatted: line.address,
-          location: googleAddressData.results[0].geometry.location,
-          formatted: googleAddressData.results[0].formatted_address,
-          city: googleAddressData.results[0].address_components[1]?.long_name,
-        },
-      };
-      addressesWithLocations.push(line);
-    }
-  }
-  return addressesWithLocations;
-}
-
 async function main() {
-  setTimeout(async () => {
-    let daysToCollect = 15;
-    let data = await collect_data(daysToCollect);
-    data = await organize_duplicate_addresses(data);
-    add_geo_points(data);
+  await sleep(15000);
+  let daysToCollect = 15;
+  let data = await collect_data(daysToCollect);
+  data = await organize_duplicate_addresses(data);
+  console.log({ data });
 
-    //add_geo_points might take some time, so timeout is neccesary
-    setTimeout(() => {
-      write_data_to_github(data);
-    }, 5000);
-  }, 10000);
+  //fetch saved locations from Github
+  let url =
+    "https://raw.githubusercontent.com/orianshechter/blood-donation-addresses/main/addressesGeoPoints.json";
+  let addressesFromGitHub = await fetch(url).then((response) =>
+    response.json()
+  );
+  console.log(addressesFromGitHub);
+
+  for (let i = 0; i < data.length; i++) {
+    let addressObj = addressesFromGitHub.find(
+      (address) => address.unformatted === data[i].address
+    );
+
+    // if address geolocation is already saved in Github.
+    if (addressObj) {
+      console.log({ addressObj });
+      let city = data[i].city ? data[i].city : addressObj.city;
+      data[i].address = { ...addressObj, city: city };
+      delete data[i].city;
+    }
+  }
+  console.log({ data });
+  let addressesInGitHub = data.filter(
+    (addressObj) => typeof addressObj.address !== "string"
+  );
+  let addressesNotInGitHub = data.filter(
+    (addressObj) => typeof addressObj.address === "string"
+  );
+  console.log({ addressesNotInGitHub });
+  console.log({ addressesInGitHub });
+
+  // in case of new addresses, needs to fetch their locations from google geocode and update in Github.
+  if (addressesNotInGitHub.length > 0) {
+    let newAddresses = await fetchGeoLocations(addressesNotInGitHub);
+    console.log({ addressesNotInGitHub });
+    console.log({ newAddresses });
+    await write_data_to_github({
+      data: addressesFromGitHub.concat(newAddresses),
+      url:
+        "https://api.github.com/repos/orianshechter/blood-donation-addresses/contents/addressesGeoPoints.json",
+      filename: "addressesGeoPoints.json",
+    });
+  }
+
+  // update scraped addresses
+  await write_data_to_github({
+    data: addressesInGitHub.concat(addressesNotInGitHub),
+    url:
+      "https://api.github.com/repos/orianshechter/blood-donation-addresses/contents/addresses.json",
+    filename: "addresses.json",
+  });
 }
+
 main();
