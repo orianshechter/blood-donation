@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/blood-donation/static/css/main.0c378b79.chunk.css",
-    "main.js": "/blood-donation/static/js/main.0212b267.chunk.js",
-    "main.js.map": "/blood-donation/static/js/main.0212b267.chunk.js.map",
+    "main.css": "/blood-donation/static/css/main.6e99b59a.chunk.css",
+    "main.js": "/blood-donation/static/js/main.8c9b90ab.chunk.js",
+    "main.js.map": "/blood-donation/static/js/main.8c9b90ab.chunk.js.map",
     "runtime-main.js": "/blood-donation/static/js/runtime-main.01db122d.js",
     "runtime-main.js.map": "/blood-donation/static/js/runtime-main.01db122d.js.map",
     "static/css/2.20aa2d7b.chunk.css": "/blood-donation/static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.ac6a0e95.chunk.js": "/blood-donation/static/js/2.ac6a0e95.chunk.js",
-    "static/js/2.ac6a0e95.chunk.js.map": "/blood-donation/static/js/2.ac6a0e95.chunk.js.map",
+    "static/js/2.0ff163bf.chunk.js": "/blood-donation/static/js/2.0ff163bf.chunk.js",
+    "static/js/2.0ff163bf.chunk.js.map": "/blood-donation/static/js/2.0ff163bf.chunk.js.map",
     "index.html": "/blood-donation/index.html",
     "static/css/2.20aa2d7b.chunk.css.map": "/blood-donation/static/css/2.20aa2d7b.chunk.css.map",
-    "static/css/main.0c378b79.chunk.css.map": "/blood-donation/static/css/main.0c378b79.chunk.css.map",
-    "static/js/2.ac6a0e95.chunk.js.LICENSE.txt": "/blood-donation/static/js/2.ac6a0e95.chunk.js.LICENSE.txt"
+    "static/css/main.6e99b59a.chunk.css.map": "/blood-donation/static/css/main.6e99b59a.chunk.css.map",
+    "static/js/2.0ff163bf.chunk.js.LICENSE.txt": "/blood-donation/static/js/2.0ff163bf.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.01db122d.js",
     "static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.ac6a0e95.chunk.js",
-    "static/css/main.0c378b79.chunk.css",
-    "static/js/main.0212b267.chunk.js"
+    "static/js/2.0ff163bf.chunk.js",
+    "static/css/main.6e99b59a.chunk.css",
+    "static/js/main.8c9b90ab.chunk.js"
   ]
 }
