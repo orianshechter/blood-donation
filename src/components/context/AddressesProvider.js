@@ -39,7 +39,6 @@ export const AddressesProvider = ({children}) => {
         })
       }
     useEffect(() => {
-        var today = new Date(Date.now()).toLocaleString('he-IL').split(',')[0]
         var url =
           "https://orianshechter.github.io/blood-donation-addresses/addresses.json";
         console.log(url)
@@ -49,7 +48,7 @@ export const AddressesProvider = ({children}) => {
           if (this.status === 200) {
             try {
               const dataFromGitHub = JSON.parse(this.response) 
-              const dataFromGitHubWithLocations = dataFromGitHub.filter(a => a.address.location)  
+              const dataFromGitHubWithLocations = dataFromGitHub.filter(a => a.address.location && a.address.formatted !== 'bad_address')  
               setAddressesObjets(dataFromGitHubWithLocations.map(addressObj => {
                 if(addressObj.address.location)
                   return{

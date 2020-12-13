@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import {getHour, getDay,getDate} from '../../utils/timeFuncs'
 import './Table.css'
 function Table({address, times}) {

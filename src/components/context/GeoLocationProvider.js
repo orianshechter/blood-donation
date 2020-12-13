@@ -11,8 +11,11 @@ export const GeoLocationProvider = ({ children }) => {
   function successCurrentLocation(position) {
     console.log("success");
     setMapCenter([position.coords.latitude, position.coords.longitude]);
-    setLocationsCenter([position.coords.latitude, position.coords.longitude])
     setMapZoom(11);
+    setTimeout(() => {
+      setLocationsCenter([position.coords.latitude, position.coords.longitude])
+    },500)
+    
   }
   function errorCurrentLocation() {
     console.log("error");

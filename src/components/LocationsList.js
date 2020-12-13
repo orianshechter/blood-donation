@@ -14,6 +14,7 @@ function AddressesList() {
     console.log("sorting")
     console.log({addressesObjects})
     sortAdresses()
+    
   },[locationsCenter])
   // useEffect(() => {
   //   sortAdresses()

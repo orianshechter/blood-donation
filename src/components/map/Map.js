@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -7,16 +7,31 @@ import {
   Circle,
   Pane,
   useMap,
+  useMapEvent,
 } from "react-leaflet";
 import Table from "./Table";
 import { AddressesContext } from "../context/AddressesProvider";
 import { GeoLocationContext } from "../context/GeoLocationProvider";
 import "./Map.css";
 
-function MapUpdateViewHandler() {
+function MapUpdateViewHandler({setCircleRadius}) {
   const map = useMap();
+  const [circlePixels,setCirclePixels] = useState(15.625)
+  const mapEvents = useMapEvent({
+    'zoom': (prevZoom) => {
+      console.log({prevZoom})
+      console.log("zoom change!")
+      console.log(map.getZoom())
+      const metresPerPixel = 40075016.686 * Math.abs(Math.cos(map.getCenter().lat * Math.PI/180)) / Math.pow(2, map.getZoom()+8);
+      console.log({metresPerPixel})
+      setCircleRadius(20*metresPerPixel)
+
+    }
+  })
   const { mapCenter, locationsCenter, mapZoom } = useContext(GeoLocationContext);
-  
+  useEffect(() => {
+    console.log(map.getZoom())
+  },[map.getZoom()])
   useEffect(() => {
     map.closePopup()
     console.log("setting center to "+mapCenter)
@@ -36,6 +51,8 @@ function MapUpdateViewHandler() {
 function Map() {
   const { addressesObjects, setAddressesObjets } = useContext(AddressesContext);
   const { mapCenter, mapZoom } = useContext(GeoLocationContext);
+
+  const [circleRadius,setCircleRadius] = useState(1000)
   function onPopupOpen(addressObj) {
     setAddressesObjets((addressesObjects) => {
       return addressesObjects.map((addressObject) => {
@@ -69,7 +86,9 @@ function Map() {
       });
     });
   }
-
+  function handleZoomChange() {
+    console.log("zoom change!")
+  }
 
   if (!addressesObjects) {
     return <div>Loading Map...</div>;
@@ -77,8 +96,9 @@ function Map() {
 
   return (
     <div>
-      <MapContainer center={mapCenter} zoom={mapZoom} scrollWheelZoom={true}>
-        <MapUpdateViewHandler />
+      <MapContainer
+       center={mapCenter} zoom={mapZoom} scrollWheelZoom={true}>
+        <MapUpdateViewHandler setCircleRadius = {setCircleRadius} />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -86,7 +106,7 @@ function Map() {
         {addressesObjects.map((addressObj, idx) => {
           const id = addressObj.address.unformatted;
           const position = addressObj.address.location;
-          if (position) {
+          if (position ) {
             return (
               <div key={idx}>
                 <Pane>
@@ -97,8 +117,8 @@ function Map() {
                         : { color: "green", opacity: 0.2 }
                     }
                     key={idx + "circle"}
-                    radius={1500}
-                    center={[position.lat + 0.007, position.lng]}
+                    radius={circleRadius}
+                    center={[position.lat, position.lng]}
                     opacity={addressObj.isPopupOpen ? 1 : 0}
                   />
                 </Pane>
