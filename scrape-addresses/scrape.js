@@ -192,7 +192,8 @@ async function fetchGeoLocations(data) {
       continue;
     }
     address = encodeURIComponent(data[i].address);
-    const GOOGLE_API_KEY = "my key"; // TODO insert google key
+    //TODO insert api key
+    const GOOGLE_API_KEY = undefined
 
     let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&language=iw&key=${GOOGLE_API_KEY}`;
 

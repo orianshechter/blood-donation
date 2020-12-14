@@ -8,42 +8,29 @@ import {
   Pane,
   useMap,
   useMapEvent,
+  CircleMarker,
 } from "react-leaflet";
 import Table from "./Table";
 import { AddressesContext } from "../context/AddressesProvider";
 import { GeoLocationContext } from "../context/GeoLocationProvider";
 import "./Map.css";
 
-function MapUpdateViewHandler({setCircleRadius}) {
+function MapUpdateViewHandler() {
   const map = useMap();
-  const [circlePixels,setCirclePixels] = useState(15.625)
-  const mapEvents = useMapEvent({
-    'zoom': (prevZoom) => {
-      console.log({prevZoom})
-      console.log("zoom change!")
-      console.log(map.getZoom())
-      const metresPerPixel = 40075016.686 * Math.abs(Math.cos(map.getCenter().lat * Math.PI/180)) / Math.pow(2, map.getZoom()+8);
-      console.log({metresPerPixel})
-      setCircleRadius(20*metresPerPixel)
-
-    }
-  })
-  const { mapCenter, locationsCenter, mapZoom } = useContext(GeoLocationContext);
+  const { mapCenter, locationsCenter, mapZoom } = useContext(
+    GeoLocationContext
+  );
   useEffect(() => {
-    console.log(map.getZoom())
-  },[map.getZoom()])
+    console.log(map.getZoom());
+  }, [map.getZoom()]);
   useEffect(() => {
-    map.closePopup()
-    console.log("setting center to "+mapCenter)
-    map.setView(mapCenter); 
+    map.closePopup();
+    console.log("setting center to " + mapCenter);
+    map.setView(mapCenter);
   }, [locationsCenter, mapCenter]);
   useEffect(() => {
-    map.setView(locationsCenter, mapZoom)
-  },[locationsCenter,mapZoom])
-  // useEffect(() => {
-  //   console.log("setting zoom to "+mapZoom)
-  //   map.setZoom(mapZoom)
-  // }, [mapZoom]);
+    map.setView(locationsCenter, mapZoom);
+  }, [locationsCenter, mapZoom]);
   // it's an empty component, only here to manage the map's zoom when user makes new search
   return <></>;
 }
@@ -52,7 +39,6 @@ function Map() {
   const { addressesObjects, setAddressesObjets } = useContext(AddressesContext);
   const { mapCenter, mapZoom } = useContext(GeoLocationContext);
 
-  const [circleRadius,setCircleRadius] = useState(1000)
   function onPopupOpen(addressObj) {
     setAddressesObjets((addressesObjects) => {
       return addressesObjects.map((addressObject) => {
@@ -60,13 +46,13 @@ function Map() {
           return {
             ...addressObj,
             isPopupOpen: true,
-            isLocationClicked: false
+            isLocationClicked: false,
           };
         } else {
           return {
             ...addressObject,
-             isLocationClicked: false
-          }
+            isLocationClicked: false,
+          };
         }
       });
     });
@@ -86,9 +72,6 @@ function Map() {
       });
     });
   }
-  function handleZoomChange() {
-    console.log("zoom change!")
-  }
 
   if (!addressesObjects) {
     return <div>Loading Map...</div>;
@@ -96,9 +79,8 @@ function Map() {
 
   return (
     <div>
-      <MapContainer
-       center={mapCenter} zoom={mapZoom} scrollWheelZoom={true}>
-        <MapUpdateViewHandler setCircleRadius = {setCircleRadius} />
+      <MapContainer center={mapCenter} zoom={mapZoom} scrollWheelZoom={true}>
+        <MapUpdateViewHandler />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -106,18 +88,20 @@ function Map() {
         {addressesObjects.map((addressObj, idx) => {
           const id = addressObj.address.unformatted;
           const position = addressObj.address.location;
-          if (position ) {
+          if (position) {
             return (
               <div key={idx}>
                 <Pane>
-                  <Circle
+                  <CircleMarker
                     pathOptions={
-                      addressObj.isPopupOpen || addressObj.isListHovered || addressObj.isLocationClicked
+                      addressObj.isPopupOpen ||
+                      addressObj.isListHovered ||
+                      addressObj.isLocationClicked
                         ? { color: "red", opacity: "1" }
                         : { color: "green", opacity: 0.2 }
                     }
                     key={idx + "circle"}
-                    radius={circleRadius}
+                    radius={20}
                     center={[position.lat, position.lng]}
                     opacity={addressObj.isPopupOpen ? 1 : 0}
                   />
@@ -133,7 +117,6 @@ function Map() {
                   <Popup
                     onOpen={() => {
                       onPopupOpen(addressObj);
-
                     }}
                     onClose={() => {
                       onPopupClose(addressObj);
