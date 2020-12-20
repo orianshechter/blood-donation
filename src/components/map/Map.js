@@ -21,13 +21,11 @@ function MapUpdateViewHandler() {
     GeoLocationContext
   );
   useEffect(() => {
-    console.log(map.getZoom());
-  }, [map.getZoom()]);
-  useEffect(() => {
     map.closePopup();
     console.log("setting center to " + mapCenter);
     map.setView(mapCenter);
   }, [locationsCenter, mapCenter]);
+  
   useEffect(() => {
     map.setView(locationsCenter, mapZoom);
   }, [locationsCenter, mapZoom]);
@@ -103,7 +101,6 @@ function Map() {
                     key={idx + "circle"}
                     radius={20}
                     center={[position.lat, position.lng]}
-                    opacity={addressObj.isPopupOpen ? 1 : 0}
                   />
                 </Pane>
 

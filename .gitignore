@@ -5,6 +5,14 @@
 /.pnp
 .pnp.js
 
+/refs
+/objects
+/info
+/hooks
+.config
+.description
+.HEAD
+
 # testing
 /coverage
 

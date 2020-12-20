@@ -22,19 +22,12 @@ function CitySearchBox() {
           if (value) {
             let locationsDiv = document.getElementById("adrresses");
             if (locationsDiv) {
+              //scroll the addresses list to top
               locationsDiv.scrollTop = 0;
             }
             console.log({setMapZoom})
             setLocationsCenter([value.Y_GEO, value.X_GEO]);
             setMapCenter([value.Y_GEO, value.X_GEO]);
-            // setMapZoom(mapZoom => {
-            //   // setMapZoom(11) won't fire a useEffect(func,[mapZoom]) function if the previous mapZoom was 11.
-            //   // temporary solution to that. #TODO think about a better solution.
-            //   if(mapZoom === 11) {
-            //     return 10
-            //   }
-            //   return 11
-            // });
             setMapZoom(11)
           }
         }}

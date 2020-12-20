@@ -4,7 +4,7 @@ import './App.css'
 import {BrowserView, MobileView} from 'react-device-detect';
 
 import AddressesList from './components/LocationsList'
-import MapFree from './components/map/Map'
+import Map from './components/map/Map'
 import {AddressesProvider} from './components/context/AddressesProvider'
 import {GeoLocationProvider} from './components/context/GeoLocationProvider'
 
@@ -22,7 +22,7 @@ function App() {
           <div id="app">
               <CitySearchBox />
             <div dir="ltr" id="page__body">
-              <MapFree />
+              <Map />
               <AddressesList />
             </div>
           </div>
@@ -35,7 +35,7 @@ function App() {
             <SelectDisplayType setMainBodyDisplay={setMainBodyDisplay} />
 
             <div dir="ltr" id="page__body">
-              {mainBodyDisplay === "map" && <MapFree />}
+              {mainBodyDisplay === "map" && <Map />}
               {mainBodyDisplay === "locations" && <AddressesList />}
             </div>
           </div>

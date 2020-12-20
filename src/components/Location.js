@@ -65,7 +65,7 @@ function Location({ addressObj }) {
       </div>
       {showAllAdresses &&
         addressObj.times.map((time, idx) => {
-          //first date already has been printed above
+          //first date already has been displayed above
           if (idx === 0) {
             return;
           }
