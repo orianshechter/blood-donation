@@ -5,21 +5,17 @@ import {AddressesContext} from './context/AddressesProvider'
 import {GeoLocationContext} from './context/GeoLocationProvider'
 import Location from './Location'
 
+const CIRCLES_DISTANCES_KM = [0,10,20,30,40,50,60]
 function AddressesList() {
   const {addressesObjects, setAddressesObjets} = useContext(AddressesContext);
   const { mapCenter, mapZoom, locationsCenter } = useContext(GeoLocationContext)
 
   useEffect(() => {
-    // console.log({addressesObjects})
-    // console.log("sorting")
-    // console.log({addressesObjects})
-    sortAdresses()
+    sortAddresses()
     
   },[locationsCenter])
-  // useEffect(() => {
-  //   sortAdresses()
-  // },[])
-  function sortAdresses() {
+  
+  function sortAddresses() {
     if(addressesObjects) {
       setAddressesObjets(addressesObjects => {
         let newAddresses = [].concat(addressesObjects)
@@ -39,7 +35,32 @@ function AddressesList() {
             locationsCenter[0],
             locationsCenter[1]
           );
-          if(address1DistanceFromLoc < address2DistanceFromLoc){
+          let address1Radius = 0
+          let address2Radius = 0
+          
+          for(let i=0;i<CIRCLES_DISTANCES_KM.length-1;i++) {
+            if(address1DistanceFromLoc > CIRCLES_DISTANCES_KM[i] && address1DistanceFromLoc < CIRCLES_DISTANCES_KM[i+1]){
+              address1Radius = i
+            }
+            if(address2DistanceFromLoc > CIRCLES_DISTANCES_KM[i] && address2DistanceFromLoc < CIRCLES_DISTANCES_KM[i+1]){
+              address2Radius = i
+            }
+          }
+          if(address1DistanceFromLoc > CIRCLES_DISTANCES_KM[CIRCLES_DISTANCES_KM.length-1]){
+            address1Radius = CIRCLES_DISTANCES_KM.length-1
+          }
+          if(address2DistanceFromLoc > CIRCLES_DISTANCES_KM[CIRCLES_DISTANCES_KM.length-1]){
+            address2Radius = CIRCLES_DISTANCES_KM.length-1
+          }
+
+          // when locations are close, we sort them by the timestamp
+          if(address1Radius === address2Radius && address1Radius !== CIRCLES_DISTANCES_KM.length-1) {
+            if(addressObj1.times[0].timestamp_start < addressObj2.times[0].timestamp_start){
+              return -1
+            }
+            return 1
+          }
+          else if(address1DistanceFromLoc < address2DistanceFromLoc){
             return -1
           }
           else {
