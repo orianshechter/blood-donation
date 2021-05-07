@@ -37,6 +37,10 @@ function Map() {
   const { addressesObjects, setAddressesObjets } = useContext(AddressesContext);
   const { mapCenter, mapZoom } = useContext(GeoLocationContext);
 
+  useEffect(() => {
+    console.log({mapCenter});
+  }, [mapCenter])
+
   function onPopupOpen(addressObj) {
     setAddressesObjets((addressesObjects) => {
       return addressesObjects.map((addressObject) => {
@@ -77,7 +81,7 @@ function Map() {
 
   return (
     <div>
-      <MapContainer center={mapCenter} zoom={mapZoom} scrollWheelZoom={true}>
+      <MapContainer center={mapCenter} zoom={mapZoom} scrollWheelZoom={true} tap={false}>
         <MapUpdateViewHandler />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -104,6 +108,7 @@ function Map() {
                   />
                 </Pane>
 
+                    
                 <Marker
                   key={idx}
                   position={position}

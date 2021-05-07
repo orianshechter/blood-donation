@@ -8,9 +8,7 @@
   /* Set the size of the div element that contains the map */
   #map {
     height: 90vh;
-    /* float: left; */
     width: 100%;
-    /* min-width: 400px; */
   }
   #app {
       display: flex;
@@ -27,7 +25,6 @@
       /* max-width: fit-content; */
       width: 95%;
       padding: 10px;
-      height: 30px;
       border: 1px solid lightgray;
       border-radius: 999px;
       box-shadow: -1px 4px 20px -6px rgba(0,0,0,.65);

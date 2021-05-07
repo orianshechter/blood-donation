@@ -1129,7 +1129,7 @@ export const cities = [
   { SettlementName: "הראל", X_GEO: 34.949432891627, Y_GEO: 31.8090207407213 },
   { SettlementName: "הרדוף", X_GEO: 35.1716069049053, Y_GEO: 32.7646053676879 },
   {
-    SettlementName: "הרצלייה",
+    SettlementName: "הרצליה",
     X_GEO: 34.8342472541915,
     Y_GEO: 32.169909910702,
   },
@@ -4036,6 +4036,16 @@ export const cities = [
     X_GEO: 35.0718042006307,
     Y_GEO: 32.8486674559827,
     SettlementName: "קריית ים",
+  },
+  {
+    X_GEO: 34.706976744044546,
+    Y_GEO: 31.78292665930545,
+    SettlementName: "גן יבנה"
+  },
+  {
+    Y_GEO: 32.83557530267815,
+    X_GEO:  35.066340092746415,
+    SettlementName: "קריית חיים",
   },
   {
     X_GEO: 35.1265063720491,
