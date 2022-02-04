@@ -1410,7 +1410,7 @@ export const cities = [
   { SettlementName: "יציץ", X_GEO: 34.8603110734142, Y_GEO: 31.8630107619044 },
   { SettlementName: "יקום", X_GEO: 34.8418859297824, Y_GEO: 32.2488370620575 },
   { SettlementName: "יקיר", X_GEO: 35.1145894303834, Y_GEO: 32.1496784086885 },
-  {SettlementName: "הוד השרון", X_GEO:32.154384147599, Y_GEO: 34.8945558788686},
+  {SettlementName: "הוד השרון", X_GEO: 34.8945558788686, Y_GEO: 32.155092635723335},
   {
     SettlementName: "יקנעם (מושבה)",
     X_GEO: 35.1149409884341,
