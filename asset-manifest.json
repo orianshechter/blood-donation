@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/blood-donation/static/css/main.8197ab83.chunk.css",
-    "main.js": "/blood-donation/static/js/main.8a75a349.chunk.js",
-    "main.js.map": "/blood-donation/static/js/main.8a75a349.chunk.js.map",
-    "runtime-main.js": "/blood-donation/static/js/runtime-main.01db122d.js",
-    "runtime-main.js.map": "/blood-donation/static/js/runtime-main.01db122d.js.map",
-    "static/css/2.20aa2d7b.chunk.css": "/blood-donation/static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.4e73dcf8.chunk.js": "/blood-donation/static/js/2.4e73dcf8.chunk.js",
-    "static/js/2.4e73dcf8.chunk.js.map": "/blood-donation/static/js/2.4e73dcf8.chunk.js.map",
+    "main.css": "/blood-donation/static/css/main.fbfa2309.chunk.css",
+    "main.js": "/blood-donation/static/js/main.9b40532c.chunk.js",
+    "main.js.map": "/blood-donation/static/js/main.9b40532c.chunk.js.map",
+    "runtime-main.js": "/blood-donation/static/js/runtime-main.b0414eb8.js",
+    "runtime-main.js.map": "/blood-donation/static/js/runtime-main.b0414eb8.js.map",
+    "static/css/2.92200efa.chunk.css": "/blood-donation/static/css/2.92200efa.chunk.css",
+    "static/js/2.9f976171.chunk.js": "/blood-donation/static/js/2.9f976171.chunk.js",
+    "static/js/2.9f976171.chunk.js.map": "/blood-donation/static/js/2.9f976171.chunk.js.map",
     "index.html": "/blood-donation/index.html",
-    "static/css/2.20aa2d7b.chunk.css.map": "/blood-donation/static/css/2.20aa2d7b.chunk.css.map",
-    "static/css/main.8197ab83.chunk.css.map": "/blood-donation/static/css/main.8197ab83.chunk.css.map",
-    "static/js/2.4e73dcf8.chunk.js.LICENSE.txt": "/blood-donation/static/js/2.4e73dcf8.chunk.js.LICENSE.txt"
+    "static/css/2.92200efa.chunk.css.map": "/blood-donation/static/css/2.92200efa.chunk.css.map",
+    "static/css/main.fbfa2309.chunk.css.map": "/blood-donation/static/css/main.fbfa2309.chunk.css.map",
+    "static/js/2.9f976171.chunk.js.LICENSE.txt": "/blood-donation/static/js/2.9f976171.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.01db122d.js",
-    "static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.4e73dcf8.chunk.js",
-    "static/css/main.8197ab83.chunk.css",
-    "static/js/main.8a75a349.chunk.js"
+    "static/js/runtime-main.b0414eb8.js",
+    "static/css/2.92200efa.chunk.css",
+    "static/js/2.9f976171.chunk.js",
+    "static/css/main.fbfa2309.chunk.css",
+    "static/js/main.9b40532c.chunk.js"
   ]
 }
