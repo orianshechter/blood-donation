@@ -17,7 +17,7 @@ import "./Map.css";
 
 function MapUpdateViewHandler() {
   const map = useMap();
-  const { mapCenter, locationsCenter, mapZoom } = useContext(
+  const { mapCenter, locationsCenter, mapZoom, setCenterToCurrentLocation } = useContext(
     GeoLocationContext
   );
   useEffect(() => {
@@ -30,7 +30,11 @@ function MapUpdateViewHandler() {
       map.setView(locationsCenter, mapZoom);
     }
   }, [locationsCenter, mapZoom]);
-  // it's an empty component, only here to manage the map's zoom when user makes new search
+
+  useEffect(() => {
+    setCenterToCurrentLocation();
+  },[])
+  // it's an empty component, only here to manage the map's state when user makes new search
   return <></>;
 }
 

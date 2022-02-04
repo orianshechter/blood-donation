@@ -9,6 +9,11 @@ function CurrentLocationButton() {
     <IconButton
       onClick={() => {
         setCenterToCurrentLocation();
+        let locationsDiv = document.getElementById("addresses");
+        if (locationsDiv) {
+            //scroll the addresses list to top
+            locationsDiv.scrollTop = 0;
+        }
       }}
       size="small"
       color="primary"
