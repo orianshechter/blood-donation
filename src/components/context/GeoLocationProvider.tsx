@@ -7,14 +7,10 @@ const israelCenter = [31.5, 34.65];
 export const GeoLocationProvider = ({ children }) => {
   const [mapCenter, setMapCenter] = useState(israelCenter);
   const [mapZoom, setMapZoom] = useState(7);
-  const [locationsCenter, setLocationsCenter] = useState(israelCenter)
   function successCurrentLocation(position) {
     console.log("success");
     setMapCenter([position.coords.latitude, position.coords.longitude]);
     setMapZoom(11);
-    setTimeout(() => {
-      setLocationsCenter([position.coords.latitude, position.coords.longitude])
-    },500)
     
   }
   function errorCurrentLocation() {
@@ -40,8 +36,6 @@ export const GeoLocationProvider = ({ children }) => {
         mapZoom,
         setMapZoom,
         setCenterToCurrentLocation,
-        locationsCenter,
-        setLocationsCenter
       }}
     >
       {children}

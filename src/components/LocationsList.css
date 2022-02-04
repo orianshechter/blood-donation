@@ -1,13 +1,11 @@
 /* for mobile */
 @media only screen and (max-width: 600px) {
     #adrresses {
-        /* width: 30vw; */
         height: 80vh;
         background: whitesmoke;
         overflow-y: scroll;
       }
       #address {
-        /* background-color: lightblue; */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -18,7 +16,6 @@
         cursor: pointer;
         border: 1px solid lightgray;
         box-shadow: 10px 5px 12px 0px lightgrey
-        /* box-shadow: inset 3mm -6mm 4mm lightblue; */
       }
       #time {
         display: flex;
@@ -33,12 +30,10 @@
 @media only screen and (min-width: 600px) {
     #adrresses {
         width: 30vw;
-        /* height: 80vh; */
         background: whitesmoke;
         overflow-y: scroll;
       }
       #address {
-        /* background-color: lightblue; */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -48,17 +43,20 @@
         line-height: 1;
         cursor: pointer;
         border: 1px solid lightgray;
-        box-shadow: 10px 5px 12px 0px lightgrey
+        box-shadow: 10px 5px 12px 0px lightgrey;
       }
       #adrresses > #address:hover {
         background-color: lightgray;
       }
-      #time {
+      .time {
         display: flex;
         flex-direction: row-reverse;
         justify-content: space-between;
         font-size: larger;
         font-weight: bold;
-        /* margin-bottom: 3px; */
+      }
+
+      .address-text {
+        background-color: #f7bebe;
       }
 }

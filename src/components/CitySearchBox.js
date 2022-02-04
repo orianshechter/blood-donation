@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { GeoLocationContext } from "../components/context/GeoLocationProvider";
+import { GeoLocationContext } from "./context/GeoLocationProvider";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { cities } from "../database/cities";
 import { createFilterOptions } from "@material-ui/lab/Autocomplete";
@@ -25,9 +25,8 @@ function CitySearchBox() {
               //scroll the addresses list to top
               locationsDiv.scrollTop = 0;
             }
-            console.log({setMapZoom})
-            setLocationsCenter([value.Y_GEO, value.X_GEO]);
             setMapCenter([value.Y_GEO, value.X_GEO]);
+            setLocationsCenter([value.Y_GEO, value.X_GEO])
             setMapZoom(11)
           }
         }}

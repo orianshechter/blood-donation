@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { getHour, getDay, getDate } from "../utils/timeFuncs";
 import { AddressesContext } from "./context/AddressesProvider";
 import { GeoLocationContext } from "./context/GeoLocationProvider"
@@ -22,6 +22,9 @@ function Location({ addressObj }) {
         onMouseAddressOut(addressObj);
       }}
       id="address"
+      style={addressObj.address.unformatted.toString().includes(`תחנת מד"א`) 
+      || addressObj.address.unformatted.toString().includes(`שרותי הדם מד"א`) 
+      ? {backgroundColor: "#f7bebe"} : {}}
     >
       <div
         id="click__to__center__map"
@@ -54,7 +57,8 @@ function Location({ addressObj }) {
         <h3>{addressObj.address.city}</h3>
 
         <p>{addressObj.address.unformatted}</p>
-        <div id="time">
+
+        <div className="time">
           <p>{getDate(addressObj.times[0].timestamp_start)}</p>
           <p>{getDay(addressObj.times[0].timestamp_start)}</p>
           <p>
@@ -70,7 +74,7 @@ function Location({ addressObj }) {
             return;
           }
           return (
-            <div key={time.timestamp_start} id="time">
+            <div key={time.timestamp_start} className="time">
               <p>{getDate(time.timestamp_start)}</p>
               <p>{getDay(time.timestamp_start)}</p>
               <p>

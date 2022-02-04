@@ -22,7 +22,6 @@ function MapUpdateViewHandler() {
   );
   useEffect(() => {
     map.closePopup();
-    console.log("setting center to " + mapCenter);
     map.setView(mapCenter);
   }, [locationsCenter, mapCenter]);
   
@@ -36,10 +35,6 @@ function MapUpdateViewHandler() {
 function Map() {
   const { addressesObjects, setAddressesObjets } = useContext(AddressesContext);
   const { mapCenter, mapZoom } = useContext(GeoLocationContext);
-
-  useEffect(() => {
-    console.log({mapCenter});
-  }, [mapCenter])
 
   function onPopupOpen(addressObj) {
     setAddressesObjets((addressesObjects) => {
