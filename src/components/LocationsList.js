@@ -12,7 +12,6 @@ function AddressesList() {
 
   useEffect(() => {
     sortAddresses()
-    
   },[locationsCenter])
   
   function sortAddresses() {
