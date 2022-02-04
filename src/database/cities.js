@@ -1410,7 +1410,9 @@ export const cities = [
   { SettlementName: "יציץ", X_GEO: 34.8603110734142, Y_GEO: 31.8630107619044 },
   { SettlementName: "יקום", X_GEO: 34.8418859297824, Y_GEO: 32.2488370620575 },
   { SettlementName: "יקיר", X_GEO: 35.1145894303834, Y_GEO: 32.1496784086885 },
-  {SettlementName: "הוד השרון", X_GEO: 34.8945558788686, Y_GEO: 32.155092635723335},
+  { SettlementName: "הוד השרון", X_GEO: 34.8945558788686, Y_GEO: 32.155092635723335},
+  { SettlementName: "נצרת", X_GEO: 35.29736292423327, Y_GEO: 32.70076581850196 },
+  { SettlementName: "דאליית אל כרמל", X_GEO: 35.04696987743737, Y_GEO: 32.69389411904738 },
   {
     SettlementName: "יקנעם (מושבה)",
     X_GEO: 35.1149409884341,
