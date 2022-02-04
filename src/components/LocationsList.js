@@ -12,6 +12,14 @@ function AddressesList() {
 
   useEffect(() => {
     sortAddresses()
+    let locationsDiv = document.getElementById('adrresses');
+    if(locationsDiv) {
+      locationsDiv.scrollTop = 0;
+    }
+  },[mapCenter,mapZoom, locationsCenter])
+
+  useEffect(() => {
+    sortAddresses()
   },[locationsCenter])
   
   function sortAddresses() {

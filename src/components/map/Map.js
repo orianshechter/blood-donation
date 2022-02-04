@@ -26,7 +26,9 @@ function MapUpdateViewHandler() {
   }, [locationsCenter, mapCenter]);
   
   useEffect(() => {
-    map.setView(locationsCenter, mapZoom);
+    if(locationsCenter && mapZoom) {
+      map.setView(locationsCenter, mapZoom);
+    }
   }, [locationsCenter, mapZoom]);
   // it's an empty component, only here to manage the map's zoom when user makes new search
   return <></>;
