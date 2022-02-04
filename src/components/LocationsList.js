@@ -12,7 +12,7 @@ function AddressesList() {
 
   useEffect(() => {
     sortAddresses()
-    let locationsDiv = document.getElementById('adrresses');
+    let locationsDiv = document.getElementById('addresses');
     if(locationsDiv) {
       locationsDiv.scrollTop = 0;
     }
@@ -82,9 +82,9 @@ function AddressesList() {
   if (!addressesObjects) {
     return <div>Loading Locations...</div>;
   }
-  
+
   return (
-    <div id="adrresses">
+    <div id="addresses">
       {addressesObjects.map((addressObj, idx) => {
         if(idx > 20) {
           return

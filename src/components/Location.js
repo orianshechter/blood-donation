@@ -12,7 +12,10 @@ function Location({ addressObj }) {
     AddressesContext
   );
   const [showAllAdresses, setShowAllAdresses] = useState(false);
-  const {setMapCenter} = useContext(GeoLocationContext)
+  const {setMapCenter} = useContext(GeoLocationContext);
+
+  const isMadaStationLocation = addressObj.address.unformatted.toString().includes(`תחנת מד"א`)
+      || addressObj.address.unformatted.toString().includes(`שרותי הדם מד"א`);
   return (
     <div
       onMouseEnter={() => {
@@ -21,10 +24,7 @@ function Location({ addressObj }) {
       onMouseLeave={() => {
         onMouseAddressOut(addressObj);
       }}
-      id="address"
-      style={addressObj.address.unformatted.toString().includes(`תחנת מד"א`) 
-      || addressObj.address.unformatted.toString().includes(`שרותי הדם מד"א`) 
-      ? {backgroundColor: "#f7bebe"} : {}}
+      className={isMadaStationLocation ? "address-mada" :  "address"}
     >
       <div
         id="click__to__center__map"

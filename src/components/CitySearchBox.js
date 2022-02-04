@@ -20,7 +20,7 @@ function CitySearchBox() {
         filterOptions={filterSearchOptions}
         onChange={(event, value) => {
           if (value) {
-            let locationsDiv = document.getElementById("adrresses");
+            let locationsDiv = document.getElementById("addresses");
             if (locationsDiv) {
               //scroll the addresses list to top
               locationsDiv.scrollTop = 0;

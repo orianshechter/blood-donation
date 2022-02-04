@@ -1,11 +1,12 @@
 /* for mobile */
 @media only screen and (max-width: 600px) {
-    #adrresses {
+    #addresses {
         height: 80vh;
         background: whitesmoke;
         overflow-y: scroll;
       }
-      #address {
+
+      .address {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -17,7 +18,22 @@
         border: 1px solid lightgray;
         box-shadow: 10px 5px 12px 0px lightgrey
       }
-      #time {
+
+    .address-mada {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      text-align: center;
+      padding: 10px;
+      line-height: 1;
+      cursor: pointer;
+      border: 1px solid lightgray;
+      box-shadow: 10px 5px 12px 0px lightgrey;
+      background-color: #f7bebe;
+    }
+
+      .time {
         display: flex;
         flex-direction: row-reverse;
         justify-content: space-between;
@@ -28,12 +44,12 @@
 
 /*  for Desktop Browser */
 @media only screen and (min-width: 600px) {
-    #adrresses {
+    #addresses {
         width: 30vw;
         background: whitesmoke;
         overflow-y: scroll;
       }
-      #address {
+      .address {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -45,7 +61,22 @@
         border: 1px solid lightgray;
         box-shadow: 10px 5px 12px 0px lightgrey;
       }
-      #adrresses > #address:hover {
+
+      .address-mada {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        padding: 10px;
+        line-height: 1;
+        cursor: pointer;
+        border: 1px solid lightgray;
+        box-shadow: 10px 5px 12px 0px lightgrey;
+        background-color: #f7bebe;
+      }
+
+      #addresses > .address:hover {
         background-color: lightgray;
       }
       .time {
