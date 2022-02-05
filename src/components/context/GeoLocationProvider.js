@@ -27,7 +27,7 @@ export const GeoLocationProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    setTimeout(setCenterToCurrentLocation, 4000);
+    setTimeout(setCenterToCurrentLocation, 2000);
   },[])
 
   return (
