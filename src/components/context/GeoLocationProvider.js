@@ -9,11 +9,9 @@ export const GeoLocationProvider = ({ children }) => {
   const [mapZoom, setMapZoom] = useState(7);
   const [locationsCenter, setLocationsCenter] = useState(israelCenter);
   function successCurrentLocation(position) {
-    console.log("success");
     setMapCenter([position.coords.latitude, position.coords.longitude]);
     setLocationsCenter([position.coords.latitude, position.coords.longitude]);
     setMapZoom(11);
-    
   }
   function errorCurrentLocation() {
     console.log("error");
@@ -29,7 +27,7 @@ export const GeoLocationProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    setCenterToCurrentLocation()
+    setTimeout(setCenterToCurrentLocation, 4000);
   },[])
 
   return (
