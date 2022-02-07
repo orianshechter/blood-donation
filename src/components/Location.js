@@ -11,7 +11,7 @@ function Location({ addressObj }) {
   const { onMouseAddressHover, onMouseAddressOut, setAddressesObjets } = useContext(
     AddressesContext
   );
-  const [showAllAdresses, setShowAllAdresses] = useState(false);
+  const [showAllAddresses, setShowAllAddresses] = useState(false);
   const {setMapCenter} = useContext(GeoLocationContext);
 
   const isMadaStationLocation = addressObj.address.unformatted.toString().includes(`תחנת מד"א`)
@@ -24,13 +24,12 @@ function Location({ addressObj }) {
       onMouseLeave={() => {
         onMouseAddressOut(addressObj);
       }}
-      className={isMadaStationLocation ? "address-mada" :  "address"}
+      className={isMadaStationLocation ? "address__mada" :  "address"}
     >
       <div
         id="click__to__center__map"
         onClick={() => {
           if(isBrowser && !isMobile){
-            // onMouseAddressOut(addressObj);
             setAddressesObjets((addressesObjects) => {
               return addressesObjects.map(addressObject => {
                 if(addressObject === addressObj){
@@ -67,7 +66,7 @@ function Location({ addressObj }) {
           </p>
         </div>
       </div>
-      {showAllAdresses &&
+      {showAllAddresses &&
         addressObj.times.map((time, idx) => {
           //first date already has been displayed above
           if (idx === 0) {
@@ -86,10 +85,10 @@ function Location({ addressObj }) {
           );
         })}
       <div>
-        {showAllAdresses && addressObj.times.length > 1 && (
+        {showAllAddresses && addressObj.times.length > 1 && (
           <Button
             onClick={() => {
-              setShowAllAdresses(false);
+              setShowAllAddresses(false);
             }}
             size="small"
             color="primary"
@@ -97,15 +96,15 @@ function Location({ addressObj }) {
           >
             <ExpandLessIcon
               color="secondary"
-              onClick={() => setShowAllAdresses(true)}
+              onClick={() => setShowAllAddresses(true)}
             />
             פחות תאריכים
           </Button>
         )}
-        {!showAllAdresses && addressObj.times.length > 1 && (
+        {!showAllAddresses && addressObj.times.length > 1 && (
           <Button
             onClick={() => {
-              setShowAllAdresses(true);
+              setShowAllAddresses(true);
             }}
             size="small"
             color="primary"
@@ -113,7 +112,7 @@ function Location({ addressObj }) {
           >
             <ExpandMoreIcon
               color="secondary"
-              onClick={() => setShowAllAdresses(true)}
+              onClick={() => setShowAllAddresses(true)}
             />
             לעוד תאריכים
           </Button>

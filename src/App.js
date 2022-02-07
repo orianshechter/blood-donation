@@ -7,7 +7,7 @@ import AddressesList from './components/LocationsList'
 import Map from './components/map/Map'
 import {AddressesProvider} from './components/context/AddressesProvider'
 import {GeoLocationProvider} from './components/context/GeoLocationProvider'
-
+import TimePicker from './components/time-picker/TimePicker';
 import CitySearchBox from './components/CitySearchBox'
 
 import SelectDisplayType from './components/SelectDisplayType'
@@ -20,7 +20,10 @@ function App() {
       <AddressesProvider>
         <BrowserView>
           <div id="app">
+            <div id="page__header">
               <CitySearchBox />
+              <TimePicker />
+            </div>
             <div dir="ltr" id="page__body">
               <Map />
               <AddressesList />
@@ -31,7 +34,7 @@ function App() {
         <MobileView>
           <div id="app">
             <CitySearchBox />
-            {/* <CurrentLocationButton /> */}
+            <TimePicker />
             <SelectDisplayType setMainBodyDisplay={setMainBodyDisplay} />
 
             <div dir="ltr" id="page__body">

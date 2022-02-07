@@ -4,6 +4,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { cities } from "../database/cities";
 import { createFilterOptions } from "@material-ui/lab/Autocomplete";
 import CurrentLocationButton from "./CurrentLocationButton";
+import './CitySearchBox.css';
 
 function CitySearchBox() {
   const { setMapCenter, setMapZoom, setLocationsCenter } = useContext(

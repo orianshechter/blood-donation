@@ -4,7 +4,7 @@
     font-family: heebo,sans-serif;
   }
   /* for mobile */
-  @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   /* Set the size of the div element that contains the map */
   #map {
     height: 90vh;
@@ -15,39 +15,22 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      /* background-color: lightgrey; */
   }
-  
-  #search__bar {
+
+  #page__header {
       display: flex;
-      flex: 1;
-      align-items: center;
-      /* max-width: fit-content; */
-      width: 95%;
-      padding: 10px;
-      border: 1px solid lightgray;
-      border-radius: 999px;
-      box-shadow: -1px 4px 20px -6px rgba(0,0,0,.65);
-      margin-top: 4%;
-      margin-bottom: 4%;
-      justify-content: space-between;
-    }
-  #search__bar > input {
-      border: 10px;
-      padding: 10px;
-      outline-width: 0;
-      border-radius: 99px;
-      
-      /* width: 250px; */
-      width: 100%;
-      font-size: 20px;
+      flex-direction: column;
+      max-width: 70%;
+      margin-bottom: 1%;
+      margin-top: 1%;
   }
-  
+
   #page__body {
     display: flex;
     flex-direction: column;
     width: 95vw;
     box-shadow: -1px 4px 20px -6px rgba(0,0,0,.65);
+    z-index: 0;
   }
   /* Map or List buttons*/
   .switch {
@@ -61,7 +44,7 @@
     /* font-size: 25px; */
     border-radius: 10px;
   }
-  
+
   .quality {
     position: relative;
     display: inline-block;
@@ -103,13 +86,12 @@
   .quality input[type="radio"]:active ~ label {
     transform: scale(1.05);
   }
-  
+
   }
-  
+
   /*  for Desktop Browser */
   @media only screen and (min-width: 600px) {
     body {
-      /* background-color: lightblue; */
       background-color: whitesmoke;
     }
     #map {
@@ -121,46 +103,25 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        
-        /* background-color: whitesmoke; */
     }
-    
-    #search__bar {
+
+    #page__header {
         display: flex;
-        flex: 1;
-        align-items: center;
-        /* max-width: fit-content; */
-        width: fit-content;
-        /* padding: 10px; */
-        /* width: 33%; */
-        /* height: 30px; */
-        /* width: 45%; */
-        border: 1px solid lightgray;
-        border-radius: 999px;
-        box-shadow: -1px 4px 20px -6px rgba(0,0,0,.65);
-        margin-top: 1%;
+        flex-direction: row;
+        max-width: 70%;
         margin-bottom: 1%;
-        background: white;
-        padding: 8px;
-      }
-    #search__bar > input {
-        border: 10px;
-        /* padding: 10px; */
-        outline-width: 0;
-        border-radius: 99px;
-        width: fit-content;
-        /* width: 250px; */
-        width: 100%;
-        font-size: 20px;
+        margin-top: 1%;
     }
+
     #page__body {
         height: 85vh;
-      display: flex;
-      flex-direction: row;
-      box-shadow: -1px 4px 20px -6px rgba(0,0,0,.65);
+        display: flex;
+        flex-direction: row;
+        box-shadow: -1px 4px 20px -6px rgba(0,0,0,.65);
+        z-index: 0;
     }
   }
-  
+
   .MuiInputLabel-outlined {
     z-index: 1;
     transform: translate(14px, 20px) scale(1);
