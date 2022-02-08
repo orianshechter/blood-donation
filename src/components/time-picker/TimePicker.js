@@ -48,7 +48,7 @@ function TimePicker() {
                 calendarContainer={headerContainer}
                 customInput={<DatePickerInput />}
             />
-            {startDate || endDate &&
+            {startDate || endDate ?
                 <IconButton
                     onClick={() => {
                         setStartDate(null);
@@ -60,7 +60,7 @@ function TimePicker() {
                 >
                     <HighlightOff color="primary" size="small" />
                 </IconButton>
-            }
+            : <></>}
         </div>
     );
 }
