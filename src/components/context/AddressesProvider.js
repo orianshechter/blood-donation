@@ -1,10 +1,13 @@
 import React, { createContext, useState, useEffect } from 'react'
-
+import { getFilteredAddressesByTimes } from '../../utils/timeFuncs';
 export const AddressesContext = createContext()
 
 export const AddressesProvider = ({children}) => {
-    const [addressesObjects,setAddressesObjets] = useState(undefined)
-    
+    const [addressesObjects, setAddressesObjets] = useState(null);
+    const [allAddressesObjects, setAllAddressesObjects] = useState(null);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+
     function onMouseAddressHover(addressObj) {
         setAddressesObjets((addressesObjects) => {
           return addressesObjects.map(addressObject => {
@@ -47,7 +50,7 @@ export const AddressesProvider = ({children}) => {
           if (this.status === 200) {
             try {
               const fetchedAddresses = JSON.parse(this.response)
-              const filteredFetchedAddresses = fetchedAddresses.filter(a => {
+              let filteredFetchedAddresses = fetchedAddresses.filter(a => {
                   if(!(a.address.location && a.address.formatted !== 'bad_address')) {
                       return false
                   }
@@ -57,31 +60,48 @@ export const AddressesProvider = ({children}) => {
                   }
                   return true;
               });
-              setAddressesObjets(filteredFetchedAddresses.map(addressObj => {
-                if(addressObj.address.location) {
-                  const isDonationEnded = new Date(addressObj.times[0].timestamp_end) < new Date();
-                  if(isDonationEnded){
-                      addressObj.times.shift();
-                  }
-                  return {
-                      ...addressObj,
-                      isPopupOpen: false,
-                      isListHovered: false,
-                  }
-              }}));
+                filteredFetchedAddresses = filteredFetchedAddresses.map(addressObj => {
+                    if(addressObj.address.location) {
+                      const isDonationEnded = new Date(addressObj.times[0].timestamp_end) < new Date();
+                      if(isDonationEnded){
+                          addressObj.times.shift();
+                      }
+                      return {
+                          ...addressObj,
+                          isPopupOpen: false,
+                          isListHovered: false,
+                      }
+                    }});
+                setAllAddressesObjects(filteredFetchedAddresses);
+                setAddressesObjets(filteredFetchedAddresses);
             } catch (e) {
               console.log(e.message);
             }
           } else if (this.status === 400) {
-            setAddressesObjets([])
+            setAddressesObjets([]);
+            setAllAddressesObjects([]);
           }
         };
         request.send();
       }, []);
     
-      
+
+    useEffect(() => {
+        if(startDate) {
+            setAddressesObjets(getFilteredAddressesByTimes(allAddressesObjects, startDate, endDate));
+        } else {
+            setAddressesObjets(allAddressesObjects);
+        }
+    },[startDate, endDate])
+
     return(
-        <AddressesContext.Provider value = {{addressesObjects, setAddressesObjets,onMouseAddressHover,onMouseAddressOut}}>
+        <AddressesContext.Provider value = {{addressesObjects,
+            setAddressesObjets,
+            onMouseAddressHover,
+            onMouseAddressOut,
+            startDate, endDate,
+            setStartDate, setEndDate
+        }}>
             {children}
         </AddressesContext.Provider>
     )

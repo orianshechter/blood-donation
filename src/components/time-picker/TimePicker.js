@@ -1,14 +1,14 @@
-import React, { useState, forwardRef } from 'react';
+import React, {useState, forwardRef, useContext} from 'react';
 import DatePicker, {CalendarContainer} from 'react-datepicker';
 import {he} from 'date-fns/locale';
 import { HighlightOff } from "@material-ui/icons";
 import IconButton from "@material-ui/core/IconButton";
 import 'react-datepicker/dist/react-datepicker.css';
 import './TimePicker.css';
+import { AddressesContext } from '../context/AddressesProvider';
 
 function TimePicker() {
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const { startDate, setStartDate, endDate, setEndDate } = useContext(AddressesContext);
     const [headerText, setHeaderText] = useState("בחר תאריך התחלה");
     const onChange = (dates) => {
         const [start, end] = dates;
@@ -48,7 +48,7 @@ function TimePicker() {
                 calendarContainer={headerContainer}
                 customInput={<DatePickerInput />}
             />
-            {startDate || endDate ?
+            {startDate || endDate &&
                 <IconButton
                     onClick={() => {
                         setStartDate(null);
@@ -60,7 +60,7 @@ function TimePicker() {
                 >
                     <HighlightOff color="primary" size="small" />
                 </IconButton>
-                : <></>}
+            }
         </div>
     );
 }
