@@ -92,11 +92,12 @@ export const AddressesProvider = ({children}) => {
         } else {
             setAddressesObjets(allAddressesObjects);
         }
-    },[startDate, endDate])
+    },[startDate, endDate, allAddressesObjects])
 
     return(
         <AddressesContext.Provider value = {{addressesObjects,
             setAddressesObjets,
+            setAllAddressesObjects,
             onMouseAddressHover,
             onMouseAddressOut,
             startDate, endDate,

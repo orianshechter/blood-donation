@@ -7,7 +7,7 @@ import Location from './Location'
 
 const CIRCLES_DISTANCES_KM = [0,10,20,30,40,50,60]
 function AddressesList() {
-  const {addressesObjects, setAddressesObjets} = useContext(AddressesContext);
+  const {addressesObjects, setAllAddressesObjects } = useContext(AddressesContext);
   const { mapCenter, mapZoom, locationsCenter } = useContext(GeoLocationContext)
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function AddressesList() {
 
   function sortAddresses() {
     if(addressesObjects) {
-      setAddressesObjets(addressesObjects => {
+      setAllAddressesObjects(addressesObjects => {
         let newAddresses = [].concat(addressesObjects)
         newAddresses.sort((addressObj1, addressObj2) => {
           if(! (addressObj1.address.location && addressObj2.address.location)) {
