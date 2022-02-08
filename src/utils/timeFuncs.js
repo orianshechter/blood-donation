@@ -37,7 +37,7 @@ function getFilteredAddressesByTimes(addressesObj, startTime, endTime) {
   }
 
   // To include donations from the endTime's day
-  const realEndTime = new Date();
+  const realEndTime = new Date(endTime);
   realEndTime.setDate(endTime.getDate() + 1);
 
   let filteredAddressesObj = addressesObj.map(addressObj => {
