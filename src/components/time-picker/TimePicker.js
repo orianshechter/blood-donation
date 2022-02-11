@@ -48,6 +48,7 @@ function TimePicker() {
                 calendarContainer={headerContainer}
                 customInput={<DatePickerInput />}
                 highlightDates={[new Date().getDate(), 1]}
+                popperPlacement="bottom"
             />
             {startDate || endDate ?
                 <IconButton
