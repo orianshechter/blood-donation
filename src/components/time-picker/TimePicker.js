@@ -47,6 +47,7 @@ function TimePicker() {
                 selectsRange
                 calendarContainer={headerContainer}
                 customInput={<DatePickerInput />}
+                highlightDates={[new Date().getDate(), 1]}
             />
             {startDate || endDate ?
                 <IconButton

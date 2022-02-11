@@ -12,7 +12,7 @@ function AddressesList() {
 
   useEffect(() => {
     sortAddresses()
-  },[mapCenter, mapZoom, locationsCenter])
+  },[locationsCenter])
 
   function sortAddresses() {
     if(addressesObjects) {
