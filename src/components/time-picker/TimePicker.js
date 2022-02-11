@@ -9,7 +9,7 @@ import { AddressesContext } from '../context/AddressesProvider';
 
 function TimePicker() {
     const { startDate, setStartDate, endDate, setEndDate } = useContext(AddressesContext);
-    const [headerText, setHeaderText] = useState("בחר תאריך התחלה");
+    const [headerText, setHeaderText] = useState("בחרו תאריך התחלה");
     const onChange = (dates) => {
         const [start, end] = dates;
         setStartDate(start);
