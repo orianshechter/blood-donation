@@ -15,9 +15,9 @@ function TimePicker() {
         setStartDate(start);
         setEndDate(end);
         if(end) {
-            setHeaderText("בחר תאריך התחלה");
+            setHeaderText("בחרו תאריך התחלה");
         } else {
-            setHeaderText("בחר תאריך סיום");
+            setHeaderText("בחרו תאריך סיום");
         }
     };
     const headerContainer = ({ className, children }) => {
