@@ -28,7 +28,7 @@ function Location({ addressObj }) {
       onMouseLeave={() => {
         onMouseAddressOut(addressObj);
       }}
-      className={`address ${isMadaStationLocation ? "address__mada" : ''}`}
+      className={isMadaStationLocation ? "address__mada" : 'address'}
     >
       <div
         id="click__to__center__map"
@@ -70,22 +70,26 @@ function Location({ addressObj }) {
           </p>
         </div>
       </div>
+      {addressObj.isLocationClicked && <AddToCalendar addressObj={addressObj} />}
       {showAllAddresses &&
         addressObj.times.map((time, idx) => {
           //first date already has been displayed above
           if (idx === 0) {
-            return;
+            return null;
           }
           return (
-            <div key={time.timestamp_start} className="time">
-              <p>{getDate(time.timestamp_start)}</p>
-              <p>{getDay(time.timestamp_start)}</p>
-              <p>
-                {`${getHour(time.timestamp_start)}-${getHour(
-                  time.timestamp_end
-                )}`}
-              </p>
-            </div>
+            <>
+              <div key={time.timestamp_start} className="time" >
+                <p>{getDate(time.timestamp_start)}</p>
+                <p>{getDay(time.timestamp_start)}</p>
+                <p>
+                  {`${getHour(time.timestamp_start)}-${getHour(
+                    time.timestamp_end
+                  )}`}
+                </p>
+              </div>
+              <AddToCalendar addressObj={addressObj} time={time} />
+            </>
           );
         })}
       <div>
@@ -121,21 +125,26 @@ function Location({ addressObj }) {
             לעוד תאריכים
           </Button>
         )}
-        {addressObj.isLocationClicked && (
-          <a className='save-to-calendar' target='_blank' rel='noreferrer' href={addToCalendarLink(addressObj)}>
-            <EventIcon />
-            <span>לשמור ביומן</span>
-          </a>
-        )}
       </div>
     </div>
   );
 }
 
-const addToCalendarLink = (addressObj) => {
+const AddToCalendar = ({addressObj, time, showLabel = true}) => {
+  return (
+    <div className='save-to-calendar'>
+      <a target='_blank' rel='noreferrer' href={addToCalendarLink(addressObj, time)}>
+        <EventIcon />
+        {showLabel && <span>לשמור ביומן</span>}
+      </a>
+    </div>
+  )
+}
+
+const addToCalendarLink = (addressObj, time = addressObj.times[0]) => {
   const googleCalendar = new GoogleCalendar({
-    start: new Date(addressObj.times[0].timestamp_start),
-    end: new Date(addressObj.times[0].timestamp_end),
+    start: new Date(time.timestamp_start),
+    end: new Date(time.timestamp_end),
     location: addressObj.address.unformatted,
     description: addressObj.address.unformatted,
     summary: addressObj.address.unformatted,
