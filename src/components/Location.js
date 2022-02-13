@@ -9,7 +9,6 @@ import Button from "@material-ui/core/Button";
 import {isBrowser, isMobile} from 'react-device-detect';
 import { GoogleCalendar } from 'datebook'
 
-
 function Location({ addressObj }) {
   const { onMouseAddressHover, onMouseAddressOut, setAddressesObjets } = useContext(
     AddressesContext
