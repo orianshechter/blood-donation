@@ -4,8 +4,11 @@ import { AddressesContext } from "./context/AddressesProvider";
 import { GeoLocationContext } from "./context/GeoLocationProvider"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import EventIcon from '@material-ui/icons/Event';
 import Button from "@material-ui/core/Button";
-import {isBrowser, isMobile} from 'react-device-detect'
+import {isBrowser, isMobile} from 'react-device-detect';
+import { GoogleCalendar } from 'datebook'
+
 
 function Location({ addressObj }) {
   const { onMouseAddressHover, onMouseAddressOut, setAddressesObjets } = useContext(
@@ -18,13 +21,14 @@ function Location({ addressObj }) {
       || addressObj.address.unformatted.toString().includes(`שרותי הדם מד"א`);
   return (
     <div
+      dir='rtl'
       onMouseEnter={() => {
         onMouseAddressHover(addressObj);
       }}
       onMouseLeave={() => {
         onMouseAddressOut(addressObj);
       }}
-      className={isMadaStationLocation ? "address__mada" :  "address"}
+      className={`address ${isMadaStationLocation ? "address__mada" : ''}`}
     >
       <div
         id="click__to__center__map"
@@ -117,9 +121,27 @@ function Location({ addressObj }) {
             לעוד תאריכים
           </Button>
         )}
+        {addressObj.isLocationClicked && (
+          <a className='save-to-calendar' target='_blank' rel='noreferrer' href={addToCalendarLink(addressObj)}>
+            <EventIcon />
+            <span>לשמור ביומן</span>
+          </a>
+        )}
       </div>
     </div>
   );
+}
+
+const addToCalendarLink = (addressObj) => {
+  const googleCalendar = new GoogleCalendar({
+    start: new Date(addressObj.times[0].timestamp_start),
+    end: new Date(addressObj.times[0].timestamp_end),
+    location: addressObj.address.unformatted,
+    description: addressObj.address.unformatted,
+    summary: addressObj.address.unformatted,
+  });
+
+  return googleCalendar.render();
 }
 
 export default Location;
