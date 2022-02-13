@@ -85,7 +85,6 @@ export const AddressesProvider = ({children}) => {
         request.send();
       }, []);
 
-
     useEffect(() => {
         if(startDate) {
             setAddressesObjets(getFilteredAddressesByTimes(allAddressesObjects, startDate, endDate));

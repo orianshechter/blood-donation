@@ -28,7 +28,7 @@ function Location({ addressObj }) {
       onMouseLeave={() => {
         onMouseAddressOut(addressObj);
       }}
-      className={isMadaStationLocation ? "address__mada" : 'address'}
+      className={isMadaStationLocation ? "address__mada" : "address"}
     >
       <div
         id="click__to__center__map"
@@ -75,7 +75,7 @@ function Location({ addressObj }) {
         addressObj.times.map((time, idx) => {
           //first date already has been displayed above
           if (idx === 0) {
-            return null;
+            return;
           }
           return (
             <>
