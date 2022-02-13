@@ -20,7 +20,7 @@ export const AddressesProvider = ({children}) => {
             else{
               return {
                 ...addressObject,
-                isLocationClicked: false
+                isListHovered: false
               }
             }
           })
@@ -84,7 +84,7 @@ export const AddressesProvider = ({children}) => {
         };
         request.send();
       }, []);
-    
+
 
     useEffect(() => {
         if(startDate) {
