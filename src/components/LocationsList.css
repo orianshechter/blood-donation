@@ -1,3 +1,24 @@
+.save-to-calendar a {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.time + .save-to-calendar {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.time:hover + .save-to-calendar,
+.save-to-calendar:hover {
+  max-height: 30px;
+}
+
+.time p {
+  margin: 5px 0;
+}
+
 /* for mobile */
 @media only screen and (max-width: 600px) {
     #addresses {
