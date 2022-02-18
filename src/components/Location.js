@@ -142,11 +142,11 @@ const AddToCalendar = ({addressObj, time, showLabel = true}) => {
 
 const addToCalendarLink = (addressObj, time = addressObj.times[0]) => {
   const googleCalendar = new GoogleCalendar({
+    title: 'תרומת הדם שלי!',
     start: new Date(time.timestamp_start),
     end: new Date(time.timestamp_end),
     location: addressObj.address.unformatted,
-    description: addressObj.address.unformatted,
-    summary: addressObj.address.unformatted,
+    description: 'נא לזכור לבדוק שאין שינוי במיקום ושעות התרומה לפני היציאה לכיוון',
   });
 
   return googleCalendar.render();
