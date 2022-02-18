@@ -8,7 +8,7 @@ import Location from './Location'
 const CIRCLES_DISTANCES_KM = [0,10,20,30,40,50,60]
 function AddressesList() {
   const {addressesObjects, setAllAddressesObjects } = useContext(AddressesContext);
-  const { mapCenter, mapZoom, locationsCenter } = useContext(GeoLocationContext)
+  const { locationsCenter } = useContext(GeoLocationContext)
 
   useEffect(() => {
     sortAddresses()

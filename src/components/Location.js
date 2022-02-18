@@ -32,23 +32,23 @@ function Location({ addressObj }) {
       <div
         id="click__to__center__map"
         onClick={() => {
-          if(isBrowser && !isMobile){
-            setAddressesObjets((addressesObjects) => {
-              return addressesObjects.map(addressObject => {
-                if(addressObject === addressObj){
-                  return {
-                    ...addressObj,
-                    isLocationClicked: true
-                  };
+          setAddressesObjets((addressesObjects) => {
+            return addressesObjects.map(addressObject => {
+              if(addressObject === addressObj){
+                return {
+                  ...addressObj,
+                  isLocationClicked: true
+                };
+              }
+              else{
+                return {
+                  ...addressObject,
+                  isLocationClicked: false
                 }
-                else{
-                  return {
-                    ...addressObject,
-                    isLocationClicked: false
-                  }
-                }
-              })
+              }
             })
+          })
+          if(isMobile && !isBrowser) {
             setMapCenter([
               addressObj.address.location.lat,
               addressObj.address.location.lng,

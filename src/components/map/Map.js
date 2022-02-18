@@ -31,9 +31,6 @@ function MapUpdateViewHandler() {
     }
   }, [locationsCenter, mapZoom]);
 
-  useEffect(() => {
-    setCenterToCurrentLocation();
-  },[])
   // it's an empty component, only here to manage the map's state when user makes new search
   return <></>;
 }
