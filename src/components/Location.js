@@ -134,7 +134,7 @@ const AddToCalendar = ({addressObj, time, showLabel = true}) => {
     <div className='save-to-calendar'>
       <a target='_blank' rel='noreferrer' href={addToCalendarLink(addressObj, time)}>
         <EventIcon />
-        {showLabel && <span>לשמור ביומן</span>}
+        {showLabel && <span>הוספה ליומן גוגל</span>}
       </a>
     </div>
   )
