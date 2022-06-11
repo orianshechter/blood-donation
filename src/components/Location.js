@@ -48,7 +48,7 @@ function Location({ addressObj }) {
               }
             })
           })
-          if(isMobile && !isBrowser) {
+          if(!isMobile && isBrowser) {
             setMapCenter([
               addressObj.address.location.lat,
               addressObj.address.location.lng,
