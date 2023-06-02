@@ -16,8 +16,7 @@ function Location({ addressObj }) {
   const [showAllAddresses, setShowAllAddresses] = useState(false);
   const {setMapCenter} = useContext(GeoLocationContext);
 
-  const isMadaStationLocation = addressObj.address.unformatted.toString().includes(`תחנת מד"א`)
-      || addressObj.address.unformatted.toString().includes(`שרותי הדם מד"א`);
+  const isMadaStationLocation = addressObj.address.unformatted.toString().includes(`מד"א`)
   return (
     <div
       dir='rtl'
