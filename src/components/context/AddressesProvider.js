@@ -43,7 +43,7 @@ export const AddressesProvider = ({children}) => {
       }
     useEffect(() => {
         let url =
-          "https://orianshechter.github.io/blood-donation-addresses/test/addresses.json";
+          "https://orianshechter.github.io/blood-donation-addresses/addresses.json";
         let request = new XMLHttpRequest();
         request.open("GET", url, true);
         request.onload = function () {
