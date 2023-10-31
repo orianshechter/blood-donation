@@ -112,11 +112,11 @@ const TimePresentation = ({ addressObj, time }) => {
   return (
       <div className="time">
         <ScheduleAppointment addressObj={addressObj} time={time} />
-        <p>{getDate(addressObj.times[0].timestamp_start)}</p>
-        <p>{getDay(addressObj.times[0].timestamp_start)}</p>
+        <p>{getDate(time.timestamp_start)}</p>
+        <p>{getDay(time.timestamp_start)}</p>
         <p>
-          {getHour(addressObj.times[0].timestamp_start)}-
-          {getHour(addressObj.times[0].timestamp_end)}
+          {getHour(time.timestamp_start)}-
+          {getHour(time.timestamp_end)}
         </p>
       </div>
   )
