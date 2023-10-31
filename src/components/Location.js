@@ -127,7 +127,6 @@ const ScheduleAppointment = ({ time }) => {
     <div className='save-to-calendar'>
       <a target='_blank' rel='noreferrer' href={time.schedulingUrl}>
         <EventIcon />
-        {/*{<span>הזמנת תור</span>}*/}
       </a>
     </div>
   )
