@@ -42,8 +42,8 @@ export const AddressesProvider = ({children}) => {
         })
       }
     useEffect(() => {
-        var url =
-          "https://orianshechter.github.io/blood-donation-addresses/addresses.json";
+        let url =
+          "https://orianshechter.github.io/blood-donation-addresses/test/addresses.json";
         let request = new XMLHttpRequest();
         request.open("GET", url, true);
         request.onload = function () {
@@ -55,10 +55,7 @@ export const AddressesProvider = ({children}) => {
                       return false
                   }
                   const isDonationEnded = new Date(a.times[0].timestamp_end) < new Date();
-                  if(isDonationEnded && a.times.length === 1) {
-                      return false;
-                  }
-                  return true;
+                  return !(isDonationEnded && a.times.length === 1);
               });
                 filteredFetchedAddresses = filteredFetchedAddresses.map(addressObj => {
                     if(addressObj.address.location) {

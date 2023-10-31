@@ -3,7 +3,7 @@ A blood-donate location finder.
 Adopted by the Israel Blood Donation Organizion, and shown on their official site:
 https://www.dam.org.il/where-to-donate/
 
-The addresses scraped hourly from: https://www.mdais.org/blood-donation by the script in scrape-addresses/scrape.js file.
+The addresses scraped hourly from: https://www.mdais.org/blood-donation by the script in https://github.com/orianshechter/mda-scrape-addresses
 
 Created with React, and the map created with React-leaflet.
 ## Features:

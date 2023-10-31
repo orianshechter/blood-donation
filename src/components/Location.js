@@ -7,7 +7,6 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import EventIcon from '@material-ui/icons/Event';
 import Button from "@material-ui/core/Button";
 import {isBrowser, isMobile} from 'react-device-detect';
-import { GoogleCalendar } from 'datebook'
 
 function Location({ addressObj }) {
   const { onMouseAddressHover, onMouseAddressOut, setAddressesObjets } = useContext(
@@ -68,7 +67,7 @@ function Location({ addressObj }) {
           </p>
         </div>
       </div>
-      {addressObj.isLocationClicked && <AddToCalendar addressObj={addressObj} />}
+      {addressObj.isLocationClicked && <ScheduleAppointment addressObj={addressObj} time={addressObj.times[0]} />}
       {showAllAddresses &&
         addressObj.times.map((time, idx) => {
           //first date already has been displayed above
@@ -86,7 +85,7 @@ function Location({ addressObj }) {
                   )}`}
                 </p>
               </div>
-              <AddToCalendar addressObj={addressObj} time={time} />
+              <ScheduleAppointment addressObj={addressObj} time={time} />
             </>
           );
         })}
@@ -128,27 +127,15 @@ function Location({ addressObj }) {
   );
 }
 
-const AddToCalendar = ({addressObj, time, showLabel = true}) => {
+const ScheduleAppointment = ({ time }) => {
   return (
     <div className='save-to-calendar'>
-      <a target='_blank' rel='noreferrer' href={addToCalendarLink(addressObj, time)}>
+      <a target='_blank' rel='noreferrer' href={time.schedulingUrl}>
         <EventIcon />
-        {showLabel && <span>הוספה ליומן גוגל</span>}
+        {<span>הזמנת תור</span>}
       </a>
     </div>
   )
-}
-
-const addToCalendarLink = (addressObj, time = addressObj.times[0]) => {
-  const googleCalendar = new GoogleCalendar({
-    title: 'תרומת הדם שלי!',
-    start: new Date(time.timestamp_start),
-    end: new Date(time.timestamp_end),
-    location: addressObj.address.unformatted,
-    description: 'נא לזכור לבדוק שאין שינוי במיקום ושעות התרומה לפני היציאה לכיוון',
-  });
-
-  return googleCalendar.render();
 }
 
 export default Location;
