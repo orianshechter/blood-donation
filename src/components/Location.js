@@ -7,7 +7,6 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import EventIcon from '@material-ui/icons/Event';
 import Button from "@material-ui/core/Button";
 import {isBrowser, isMobile} from 'react-device-detect';
-import { GoogleCalendar } from 'datebook'
 
 function Location({ addressObj }) {
   const { onMouseAddressHover, onMouseAddressOut, setAddressesObjets } = useContext(
@@ -16,8 +15,7 @@ function Location({ addressObj }) {
   const [showAllAddresses, setShowAllAddresses] = useState(false);
   const {setMapCenter} = useContext(GeoLocationContext);
 
-  const isMadaStationLocation = addressObj.address.unformatted.toString().includes(`תחנת מד"א`)
-      || addressObj.address.unformatted.toString().includes(`שרותי הדם מד"א`);
+  const isMadaStationLocation = addressObj.address.unformatted.toString().includes(`מד"א`)
   return (
     <div
       dir='rtl'
@@ -60,16 +58,8 @@ function Location({ addressObj }) {
 
         <p>{addressObj.address.unformatted}</p>
 
-        <div className="time">
-          <p>{getDate(addressObj.times[0].timestamp_start)}</p>
-          <p>{getDay(addressObj.times[0].timestamp_start)}</p>
-          <p>
-            {getHour(addressObj.times[0].timestamp_start)}-
-            {getHour(addressObj.times[0].timestamp_end)}
-          </p>
-        </div>
+        <TimePresentation addressObj={addressObj} time={addressObj.times[0]} />
       </div>
-      {addressObj.isLocationClicked && <AddToCalendar addressObj={addressObj} />}
       {showAllAddresses &&
         addressObj.times.map((time, idx) => {
           //first date already has been displayed above
@@ -77,18 +67,7 @@ function Location({ addressObj }) {
             return;
           }
           return (
-            <>
-              <div key={time.timestamp_start} className="time" >
-                <p>{getDate(time.timestamp_start)}</p>
-                <p>{getDay(time.timestamp_start)}</p>
-                <p>
-                  {`${getHour(time.timestamp_start)}-${getHour(
-                    time.timestamp_end
-                  )}`}
-                </p>
-              </div>
-              <AddToCalendar addressObj={addressObj} time={time} />
-            </>
+              <TimePresentation key={time.timestamp_start} addressObj={addressObj} time={time} />
           );
         })}
       <div>
@@ -129,27 +108,27 @@ function Location({ addressObj }) {
   );
 }
 
-const AddToCalendar = ({addressObj, time, showLabel = true}) => {
+const TimePresentation = ({ addressObj, time }) => {
+  return (
+      <div className="time">
+        <ScheduleAppointment addressObj={addressObj} time={time} />
+        <p>{getDate(addressObj.times[0].timestamp_start)}</p>
+        <p>{getDay(addressObj.times[0].timestamp_start)}</p>
+        <p>
+          {getHour(addressObj.times[0].timestamp_start)}-
+          {getHour(addressObj.times[0].timestamp_end)}
+        </p>
+      </div>
+  )
+}
+
+const ScheduleAppointment = ({ time }) => {
   return (
     <div className='save-to-calendar'>
-      <a target='_blank' rel='noreferrer' href={addToCalendarLink(addressObj, time)}>
+      <a target='_blank' rel='noreferrer' href={time.schedulingUrl}>
         <EventIcon />
-        {showLabel && <span>הוספה ליומן גוגל</span>}
       </a>
     </div>
   )
 }
-
-const addToCalendarLink = (addressObj, time = addressObj.times[0]) => {
-  const googleCalendar = new GoogleCalendar({
-    title: 'תרומת הדם שלי!',
-    start: new Date(time.timestamp_start),
-    end: new Date(time.timestamp_end),
-    location: addressObj.address.unformatted,
-    description: 'נא לזכור לבדוק שאין שינוי במיקום ושעות התרומה לפני היציאה לכיוון',
-  });
-
-  return googleCalendar.render();
-}
-
 export default Location;
