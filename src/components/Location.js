@@ -58,16 +58,8 @@ function Location({ addressObj }) {
 
         <p>{addressObj.address.unformatted}</p>
 
-        <div className="time">
-          <p>{getDate(addressObj.times[0].timestamp_start)}</p>
-          <p>{getDay(addressObj.times[0].timestamp_start)}</p>
-          <p>
-            {getHour(addressObj.times[0].timestamp_start)}-
-            {getHour(addressObj.times[0].timestamp_end)}
-          </p>
-        </div>
+        <TimePresentation addressObj={addressObj} time={addressObj.times[0]} />
       </div>
-      {addressObj.isLocationClicked && <ScheduleAppointment addressObj={addressObj} time={addressObj.times[0]} />}
       {showAllAddresses &&
         addressObj.times.map((time, idx) => {
           //first date already has been displayed above
@@ -75,18 +67,7 @@ function Location({ addressObj }) {
             return;
           }
           return (
-            <>
-              <div key={time.timestamp_start} className="time" >
-                <p>{getDate(time.timestamp_start)}</p>
-                <p>{getDay(time.timestamp_start)}</p>
-                <p>
-                  {`${getHour(time.timestamp_start)}-${getHour(
-                    time.timestamp_end
-                  )}`}
-                </p>
-              </div>
-              <ScheduleAppointment addressObj={addressObj} time={time} />
-            </>
+              <TimePresentation key={time.timestamp_start} addressObj={addressObj} time={time} />
           );
         })}
       <div>
@@ -127,15 +108,28 @@ function Location({ addressObj }) {
   );
 }
 
+const TimePresentation = ({ addressObj, time }) => {
+  return (
+      <div className="time">
+        <ScheduleAppointment addressObj={addressObj} time={time} />
+        <p>{getDate(addressObj.times[0].timestamp_start)}</p>
+        <p>{getDay(addressObj.times[0].timestamp_start)}</p>
+        <p>
+          {getHour(addressObj.times[0].timestamp_start)}-
+          {getHour(addressObj.times[0].timestamp_end)}
+        </p>
+      </div>
+  )
+}
+
 const ScheduleAppointment = ({ time }) => {
   return (
     <div className='save-to-calendar'>
       <a target='_blank' rel='noreferrer' href={time.schedulingUrl}>
         <EventIcon />
-        {<span>הזמנת תור</span>}
+        {/*{<span>הזמנת תור</span>}*/}
       </a>
     </div>
   )
 }
-
 export default Location;
