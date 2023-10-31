@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/blood-donation/static/css/main.3458419f.chunk.css",
-    "main.js": "/blood-donation/static/js/main.cc33902f.chunk.js",
-    "main.js.map": "/blood-donation/static/js/main.cc33902f.chunk.js.map",
+    "main.js": "/blood-donation/static/js/main.aa055122.chunk.js",
+    "main.js.map": "/blood-donation/static/js/main.aa055122.chunk.js.map",
     "runtime-main.js": "/blood-donation/static/js/runtime-main.b0414eb8.js",
     "runtime-main.js.map": "/blood-donation/static/js/runtime-main.b0414eb8.js.map",
     "static/css/2.2f801dcd.chunk.css": "/blood-donation/static/css/2.2f801dcd.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.2f801dcd.chunk.css",
     "static/js/2.2e42d02e.chunk.js",
     "static/css/main.3458419f.chunk.css",
-    "static/js/main.cc33902f.chunk.js"
+    "static/js/main.aa055122.chunk.js"
   ]
 }
