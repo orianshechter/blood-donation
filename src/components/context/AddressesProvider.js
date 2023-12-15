@@ -43,7 +43,7 @@ export const AddressesProvider = ({children}) => {
       }
     useEffect(() => {
         let url =
-          "https://orianshechter.github.io/blood-donation-addresses/addresses.json";
+          "https://raw.githubusercontent.com/orianshechter/blood-donation-addresses/main/addresses.json";
         let request = new XMLHttpRequest();
         request.open("GET", url, true);
         request.onload = function () {
@@ -51,7 +51,7 @@ export const AddressesProvider = ({children}) => {
             try {
               const fetchedAddresses = JSON.parse(this.response)
               let filteredFetchedAddresses = fetchedAddresses.filter(a => {
-                  if(!(a.address.location && a.address.formatted !== 'bad_address')) {
+                  if(!(a.address.location)) {
                       return false
                   }
                   const isDonationEnded = new Date(a.times[0].timestamp_end) < new Date();
