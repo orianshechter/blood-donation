@@ -4176,5 +4176,9 @@ export const cities = [
     SettlementName: "ציפורי",
   },
   { X_GEO: 35.2528970353612, Y_GEO: 32.9026490135644, SettlementName: "צורית" },
-  { X_GEO: 32.05693494134149, Y_GEO: 33.44852903890945, SettlementName: "לב ים" }
+  { X_GEO: 32.05693494134149, Y_GEO: 33.44852903890945, SettlementName: "לב ים" },
+  { X_GEO: 35.57470175638256, Y_GEO: 32.707415001742135, SettlementName: "דגניה א"},
+  { X_GEO: 35.576056938255604, Y_GEO: 32.70034809374219, SettlementName: "דגניה ב"},
+  { X_GEO: 34.87437723647907, Y_GEO: 32.061873472129875, SettlementName: "גני תקווה"}
+
 ];
