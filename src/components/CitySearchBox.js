@@ -1,23 +1,37 @@
-import React, { useContext } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { GeoLocationContext } from "./context/GeoLocationProvider";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { cities } from "../database/cities";
 import { createFilterOptions } from "@material-ui/lab/Autocomplete";
 import CurrentLocationButton from "./CurrentLocationButton";
 import './CitySearchBox.css';
 
 function CitySearchBox() {
+  const [cities, setCities]= useState([]);
   const { setMapCenter, setMapZoom, setLocationsCenter } = useContext(
     GeoLocationContext
   );
   const filterSearchOptions = createFilterOptions({
     limit: 10,
   });
+  useEffect(() => {
+      const fetchCities = async () => {
+          const response = await fetch('https://raw.githubusercontent.com/orianshechter/blood-donation-addresses/main/cities.json');
+          if (!response.ok) {
+              console.log('failed to fetch cities');
+              return;
+          }
+          const data = await response.json();
+          console.log({data});
+          setCities(data);
+      };
+
+      fetchCities();
+  }, []);
   return (
     <div dir="rtl" id="search__bar">
       <Autocomplete
         options={cities}
-        getOptionLabel={(city) => city.SettlementName}
+        getOptionLabel={(city) => city.name}
         filterOptions={filterSearchOptions}
         onChange={(event, value) => {
           if (value) {
@@ -26,8 +40,8 @@ function CitySearchBox() {
               //scroll the addresses list to top
               locationsDiv.scrollTop = 0;
             }
-            setMapCenter([value.Y_GEO, value.X_GEO]);
-            setLocationsCenter([value.Y_GEO, value.X_GEO])
+            setMapCenter([value.lat, value.long]);
+            setLocationsCenter([value.lat, value.long])
             setMapZoom(11)
           }
         }}
